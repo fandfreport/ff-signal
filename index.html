@@ -515,6 +515,35 @@
     }
     .score-tooltip-desc { opacity: 0.85; }
     .score-pip { cursor: default; }
+
+    /* TWO CENTS */
+    .two-cents-section {
+      padding: 2.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .two-cents-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding-left: 1.5rem;
+      border-left: 3px solid var(--accent-q1);
+    }
+    .two-cents-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      font-style: italic;
+      color: var(--accent-q1);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.85rem;
+      line-height: 1;
+    }
+    .two-cents-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
     .gate-overlay {
       display: none;
       position: fixed;
@@ -735,6 +764,13 @@
     </div>
   </section>
 
+  <section class="two-cents-section">
+    <div class="two-cents-inner">
+      <div class="two-cents-title">Our two cents</div>
+      <p class="two-cents-body">The future economy will be defined not just by software, but by how intelligence reshapes the systems that support everyday life. From our POV, the strongest innovations will be those that reflect the interests of the general community, prioritizing core infrastructure that supports fresh drinking water, ease of transportation, and overall community wellness. F&F exists to surface the builders driving that transformation early. Now that that's out of the way, let's get to why we're here — here's your first quarterly signal of 2026.</p>
+    </div>
+  </section>
+
   <section class="index-section">
     <div class="index-inner">
       <div class="section-eyebrow" style="margin-bottom:1.1rem;">Q1 signal index · 20 companies</div>
@@ -787,6 +823,11 @@
         No companies match your filters.
       </div>
       <div class="row-count" id="q1-row-count"></div>
+      <div style="text-align:center; margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--border);">
+        <button class="btn-download" onclick="openGate()" style="font-size:13px; padding:10px 22px; border-color:var(--accent-q1); color:var(--accent-q1);">
+          ↓ Download the Q1 2026 Signal Report
+        </button>
+      </div>
     </div>
   </section>
 </div>
