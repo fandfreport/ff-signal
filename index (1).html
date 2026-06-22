@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F&F Signal Index</title>
+  <meta name="description" content="Friends & Family Signal Index — tracking early builders shaping infrastructure and the future economy.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAFAF8;
+      --bg-secondary: #F3F1EB;
+      --bg-card: #FFFFFF;
+      --text-primary: #1A1A18;
+      --text-secondary: #6B6B67;
+      --text-tertiary: #9E9E99;
+      --border: #E4E2DC;
+      --border-strong: #CECCC4;
+      --accent-q1: #D85A30;
+      --accent-q1-light: #FAECE7;
+      --accent-q1-dark: #993C1D;
+      --accent-q2: #4A3FB5;
+      --accent-q2-light: #EEEDFE;
+      --accent-q2-dark: #3C3489;
+      --accent: #D85A30;
+      --accent-light: #FAECE7;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      padding: 0 2rem;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(250,250,248,0.94);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      height: 52px;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-wordmark {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+    .tab-btn {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 0 18px;
+      border: none;
+      background: transparent;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-btn:hover { color: var(--text-secondary); }
+    .tab-btn.active-q1 { color: var(--accent-q1); border-bottom-color: var(--accent-q1); }
+    .tab-btn.active-q2 { color: var(--accent-q2); border-bottom-color: var(--accent-q2); }
+    .tab-pill {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 99px;
+      letter-spacing: 0.04em;
+    }
+    .tab-btn.active-q1 .tab-pill { background: var(--accent-q1-light); color: var(--accent-q1-dark); }
+    .tab-btn.active-q2 .tab-pill { background: var(--accent-q2-light); color: var(--accent-q2-dark); }
+    .tab-btn:not(.active-q1):not(.active-q2) .tab-pill { background: var(--bg-secondary); color: var(--text-tertiary); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
+    .btn-download {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-download:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* PAGE SECTIONS */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* HERO */
+    .hero {
+      padding: 5rem 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-q1 { background: linear-gradient(140deg, #FFF0EC 0%, #FAFAF8 50%, #FFF8F0 100%); }
+    .hero-q2 { background: linear-gradient(140deg, #EEEDFE 0%, #FAFAF8 50%, #E6F1FB 100%); }
+    .hero-inner { max-width: 860px; margin: 0 auto; }
+    .hero-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .q1 .hero-eyebrow { color: var(--accent-q1); }
+    .q2 .hero-eyebrow { color: var(--accent-q2); }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 8vw, 86px);
+      font-weight: 800;
+      line-height: 0.93;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.048em;
+    }
+    .q1 .hero-title span { color: var(--accent-q1); }
+    .q2 .hero-title span { color: var(--accent-q2); }
+    .hero-sub {
+      font-size: 15px;
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+    }
+    .hero-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .hero-meta-item { font-size: 12px; color: var(--text-secondary); }
+    .hero-meta-item strong { color: var(--text-primary); font-weight: 500; }
+    .hero-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border-strong); }
+
+    /* COMING SOON BANNER */
+    .coming-banner {
+      margin: 0;
+      padding: 0.75rem 2rem;
+      background: var(--accent-q2-light);
+      border-bottom: 1px solid #CECBF6;
+      text-align: center;
+      font-size: 12px;
+      color: var(--accent-q2-dark);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    /* PATTERNS */
+    .patterns {
+      padding: 2.75rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .patterns-inner { max-width: 860px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+    .patterns-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .pattern-item {
+      background: var(--bg-card);
+      padding: 1.25rem 1.4rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .pattern-num {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.08em;
+    }
+    .q1 .pattern-num { color: var(--accent-q1); }
+    .q2 .pattern-num { color: var(--accent-q2); }
+    .pattern-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.35rem;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .pattern-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.55; }
+
+    /* INDEX */
+    .index-section { padding: 2.25rem 2rem 5rem; }
+    .index-inner { max-width: 1020px; margin: 0 auto; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+    .metric {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1.1rem;
+    }
+    .metric-label { font-size: 10px; color: var(--text-secondary); margin-bottom: 5px; letter-spacing: 0.02em; }
+    .metric-value {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+    .controls input, .controls select {
+      font-family: var(--font-body);
+      font-size: 12px;
+      padding: 7px 11px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .controls input { flex: 1; min-width: 200px; }
+    .controls input:focus, .controls select:focus { border-color: var(--accent); }
+    .controls select {
+      cursor: pointer;
+      appearance: none;
+      padding-right: 28px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239E9E99' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 9px center;
+    }
+
+    .score-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 0.9rem;
+      font-size: 11px;
+      color: var(--text-secondary);
+      align-items: center;
+    }
+    .legend-item { display: flex; align-items: center; gap: 4px; }
+    .legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    thead th {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-align: left;
+      padding: 11px 13px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      white-space: nowrap;
+      background: var(--bg-secondary);
+      user-select: none;
+      transition: color 0.1s;
+      letter-spacing: 0.03em;
+    }
+    thead th:hover, thead th.sorted { color: var(--text-primary); }
+    thead th.sorted { font-weight: 600; }
+
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--bg); }
+    tbody td { padding: 9px 13px; vertical-align: middle; }
+    td.score-cell { text-align: center; }
+
+    .score-pip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .s1 { background: #F1EFE8; color: #5F5E5A; }
+    .s2 { background: #E6F1FB; color: #185FA5; }
+    .s3 { background: #EAF3DE; color: #3B6D11; }
+    .s4 { background: #FAEEDA; color: #854F0B; }
+    .s5 { background: #FAECE7; color: #993C1D; }
+
+    .company-name { font-weight: 500; color: var(--text-primary); font-size: 12px; letter-spacing: -0.01em; }
+    .company-category { font-size: 11px; color: var(--text-secondary); margin-top: 1px; }
+    .round-text { font-size: 11px; color: var(--text-secondary); }
+
+    .tag {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 99px;
+      margin-left: 4px;
+      vertical-align: middle;
+      letter-spacing: 0.03em;
+    }
+    .tag-q1 { background: #FAEEDA; color: #633806; }
+    .tag-q2 { background: #EEEDFE; color: #3C3489; }
+    .tag-accel { background: #E1F5EE; color: #085041; }
+    .tag-funded { background: #E6F1FB; color: #185FA5; }
+
+    .highlight-row td:first-child { border-left: 2px solid var(--accent-q1); }
+
+    .row-count {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-align: right;
+      margin-top: 0.6rem;
+    }
+
+    /* EMPTY / COMING SOON */
+    .empty { text-align: center; padding: 3rem 2rem; font-size: 13px; color: var(--text-tertiary); }
+    .empty-big {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--border-strong);
+      letter-spacing: -0.04em;
+      margin-bottom: 0.5rem;
+    }
+    .q2-placeholder {
+      padding: 3.5rem 2rem;
+      text-align: center;
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+    }
+    .q2-placeholder-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .q2-placeholder-sub { font-size: 13px; color: var(--text-secondary); }
+    .q2-placeholder-date {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 99px;
+      background: var(--accent-q2-light);
+      color: var(--accent-q2-dark);
+      letter-spacing: 0.04em;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2rem;
+      background: var(--bg-card);
+    }
+    .footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 5px;
+    }
+    .footer-tagline { font-size: 11px; color: var(--text-secondary); max-width: 280px; line-height: 1.6; }
+    .footer-meta { font-size: 11px; color: var(--text-tertiary); text-align: right; line-height: 2; }
+    .footer-meta a { color: var(--accent-q1); text-decoration: none; }
+    .footer-meta a:hover { text-decoration: underline; }
+
+    @media (max-width: 680px) {
+      nav { padding: 0 1rem; }
+      .hero { padding: 3rem 1rem 2.5rem; }
+      .patterns { padding: 2rem 1rem; }
+      .index-section { padding: 1.75rem 1rem 3.5rem; }
+      footer { padding: 1.75rem 1rem; }
+      .footer-inner { flex-direction: column; }
+      .footer-meta { text-align: left; }
+      .tab-btn { padding: 0 12px; font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <span class="nav-wordmark">F&F</span>
+    <div class="tabs">
+      <button class="tab-btn active-q1" id="tab-q1" onclick="setTab('q1')">
+        Q1 2026 <span class="tab-pill">Mar</span>
+      </button>
+      <button class="tab-btn" id="tab-q2" onclick="setTab('q2')">
+        Q2 2026 <span class="tab-pill">Jun 30</span>
+      </button>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a class="btn-download" id="nav-download" href="YOUR_PDF_LINK_HERE" target="_blank">
+      ↓ Download report
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════ Q1 PAGE ═══════════════════════════════════════ -->
+<div class="page q1 active" id="page-q1">
+
+  <section class="hero hero-q1">
+    <div class="hero-inner q1">
+      <div class="hero-eyebrow">Q1 2026 · Signal Report</div>
+      <h1 class="hero-title">Early <span>Signals</span><br>from the<br>Future Economy</h1>
+      <p class="hero-sub">20 early-stage startups selected from 100 recently funded companies — calibrated using the F&F scoring framework.</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><strong>March 30, 2026</strong></span>
+        <span class="hero-dot"></span>
+        <span class="hero-meta-item"><strong>20</strong> companies</span>
+        <span class="hero-dot"></span>
+        <span class="hero-meta-item">Friends & Family Pilot</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="patterns">
+    <div class="patterns-inner">
+      <div class="section-eyebrow">5 patterns to watch · Q1</div>
+      <div class="patterns-grid q1">
+        <div class="pattern-item">
+          <div class="pattern-num">01</div>
+          <div class="pattern-title">The return of infrastructure</div>
+          <div class="pattern-desc">Startups are increasingly focused on physical systems: water, energy, mobility, and logistics.</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-num">02</div>
+          <div class="pattern-title">AI moving down the stack</div>
+          <div class="pattern-desc">The most important companies are infrastructure layers powering everything else, not consumer apps.</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-num">03</div>
+          <div class="pattern-title">The gap in social impact</div>
+          <div class="pattern-desc">Very few startups equally prioritize innovation alongside community, water, and civil infrastructure.</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-num">04</div>
+          <div class="pattern-title">Community as competitive advantage</div>
+          <div class="pattern-desc">Companies improving access, workforce experience, and quality of life are emerging as critical players.</div>
+        </div>
+        <div class="pattern-item" style="border-right:none;">
+          <div class="pattern-num">05</div>
+          <div class="pattern-title">The split economy</div>
+          <div class="pattern-desc">Innovation runs on two parallel tracks: low-infrastructure software and high-infrastructure physical systems.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="index-section">
+    <div class="index-inner">
+      <div class="section-eyebrow" style="margin-bottom:1.1rem;">Q1 signal index · 20 companies</div>
+      <div class="metrics" id="q1-metrics"></div>
+      <div class="controls">
+        <input type="text" id="q1-search" placeholder="Search by company or category…" />
+        <select id="q1-filter-vertical">
+          <option value="">All verticals</option>
+          <option value="Infrastructure">Infrastructure & systems</option>
+          <option value="AI">AI & digital infra</option>
+          <option value="Health">Health & human systems</option>
+          <option value="Commerce">Commerce & culture</option>
+          <option value="Community">Community advancement</option>
+        </select>
+        <select id="q1-sort-col">
+          <option value="innovation">Sort: Innovation</option>
+          <option value="community">Sort: Community</option>
+          <option value="water">Sort: Water</option>
+          <option value="visibility">Sort: Visibility</option>
+          <option value="civil">Sort: Civil infra</option>
+          <option value="name">Sort: Name A–Z</option>
+        </select>
+      </div>
+      <div class="score-legend">
+        <span style="font-size:10px; color:var(--text-tertiary); margin-right:2px;">Score:</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#B4B2A9"></span>1 minimal</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#85B7EB"></span>2 indirect</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#97C459"></span>3 moderate</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#EF9F27"></span>4 strong</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#D85A30"></span>5 breakthrough</span>
+        <span class="legend-item" style="margin-left:8px; padding-left:8px; border-left:1px solid var(--border);">
+          <span style="display:inline-block;width:3px;height:13px;background:var(--accent-q1);border-radius:1px;margin-right:5px;"></span>
+          Infra standout (Innov ≥4 + Civil ≥4)
+        </span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th onclick="q1SortBy('name')" style="min-width:170px;">Company <span id="q1-arr-name"></span></th>
+              <th onclick="q1SortBy('round')" style="min-width:120px;">Round <span id="q1-arr-round"></span></th>
+              <th onclick="q1SortBy('innovation')" class="sorted" style="width:68px;text-align:center;">Innov <span id="q1-arr-innovation">↓</span></th>
+              <th onclick="q1SortBy('community')" style="width:68px;text-align:center;">Comm <span id="q1-arr-community"></span></th>
+              <th onclick="q1SortBy('water')" style="width:65px;text-align:center;">Water <span id="q1-arr-water"></span></th>
+              <th onclick="q1SortBy('visibility')" style="width:65px;text-align:center;">Visib <span id="q1-arr-visibility"></span></th>
+              <th onclick="q1SortBy('civil')" style="width:65px;text-align:center;">Civil <span id="q1-arr-civil"></span></th>
+            </tr>
+          </thead>
+          <tbody id="q1-table-body"></tbody>
+        </table>
+      </div>
+      <div id="q1-empty" class="empty" style="display:none;">
+        <div class="empty-big">—</div>
+        No companies match your filters.
+      </div>
+      <div class="row-count" id="q1-row-count"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════ Q2 PAGE ═══════════════════════════════════════ -->
+<div class="page q2" id="page-q2">
+
+  <div class="coming-banner">
+    Full Q2 Infrastructure Index drops June 30, 2026 – subscribe to get it first.
+  </div>
+
+  <section class="hero hero-q2">
+    <div class="hero-inner q2">
+      <div class="hero-eyebrow">Q2 2026 · Infrastructure Report</div>
+      <h1 class="hero-title">Infra<span>structure</span><br>Index</h1>
+      <p class="hero-sub">50 startups building the physical and digital foundations of the next economy — from water and energy to mobility, logistics, and AI infrastructure.</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><strong>June 30, 2026</strong></span>
+        <span class="hero-dot"></span>
+        <span class="hero-meta-item"><strong>50</strong> companies</span>
+        <span class="hero-dot"></span>
+        <span class="hero-meta-item">Friends & Family Signal</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="patterns">
+    <div class="patterns-inner">
+      <div class="section-eyebrow">5 patterns to watch · Q2</div>
+      <div class="patterns-grid q2">
+        <div class="pattern-item">
+          <div class="pattern-num">01</div>
+          <div class="pattern-title">Water is the next frontier</div>
+          <div class="pattern-desc">Startups addressing water access, conservation, and infrastructure are emerging as a distinct and critical category.</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-num">02</div>
+          <div class="pattern-title">Accelerators go physical</div>
+          <div class="pattern-desc">Top accelerator programs are increasingly backing hardware, robotics, and infrastructure companies over pure software.</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-num">03</div>
+          <div class="pattern-title">The logistics gap</div>
+          <div class="pattern-desc">Last-mile delivery, supply chain resilience, and autonomous logistics remain underleveraged despite massive demand.</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-num">04</div>
+          <div class="pattern-title">Energy as infrastructure</div>
+          <div class="pattern-desc">Clean energy startups are shifting from climate narrative to hard infrastructure — grid reliability, storage, and distributed power.</div>
+        </div>
+        <div class="pattern-item" style="border-right:none;">
+          <div class="pattern-num">05</div>
+          <div class="pattern-title">Community-built infrastructure</div>
+          <div class="pattern-desc">The strongest infrastructure companies embed community benefit by design, not as an afterthought.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="index-section">
+    <div class="index-inner">
+      <div class="section-eyebrow" style="margin-bottom:1.1rem;">Q2 signal index · 50 companies</div>
+
+      <div class="q2-placeholder">
+        <div class="q2-placeholder-title">Index in progress</div>
+        <div class="q2-placeholder-sub">50 infrastructure startups — accelerator cohorts and independently funded — are being researched and scored now.</div>
+        <div class="q2-placeholder-date">RELEASING JUNE 30, 2026</div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">F&F</div>
+      <div class="footer-tagline">Tracking the builders shaping the future economy, infrastructure, and communities.</div>
+    </div>
+    <div class="footer-meta">
+      <div>Friends & Family Signal</div>
+      <div id="footer-report-label">Q1 2026 · Pilot</div>
+      <div><a href="YOUR_PDF_LINK_HERE" id="footer-pdf-link">↓ Download Q1 report (PDF)</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const q1Companies = [
+  { name:"MatX", category:"AI chips / compute", round:"Series B, $500M", vertical:"AI", type:"Q1 Cohort", innovation:5, community:2, water:1, visibility:4, civil:4 },
+  { name:"Zipline", category:"Logistics / autonomous delivery", round:"Growth, $600M", vertical:"Infrastructure", type:"Q1 Cohort", innovation:4, community:5, water:2, visibility:4, civil:5 },
+  { name:"ElevenLabs", category:"AI / voice technology", round:"Series D, $500M", vertical:"AI", type:"Q1 Cohort", innovation:5, community:3, water:1, visibility:4, civil:1 },
+  { name:"Runway", category:"AI / creative tools", round:"Series D, $500M", vertical:"Commerce", type:"Q1 Cohort", innovation:4, community:3, water:1, visibility:4, civil:1 },
+  { name:"Fervo Energy", category:"Energy / climate tech", round:"Series E, $500M", vertical:"Infrastructure", type:"Q1 Cohort", innovation:5, community:4, water:3, visibility:3, civil:5 },
+  { name:"Ramp", category:"Fintech / spend management", round:"Series E, $315M", vertical:"Commerce", type:"Q1 Cohort", innovation:3, community:2, water:1, visibility:5, civil:1 },
+  { name:"AI² Robotics", category:"Robotics / AI / hardware", round:"Series B, $144.7M", vertical:"Infrastructure", type:"Q1 Cohort", innovation:5, community:2, water:1, visibility:4, civil:5 },
+  { name:"Honest Health", category:"Tech-enabled primary care", round:"Venture, $140M", vertical:"Health", type:"Q1 Cohort", innovation:3, community:4, water:1, visibility:4, civil:3 },
+  { name:"Salma Health", category:"Mental health / wellness", round:"Series A, $80M", vertical:"Health", type:"Q1 Cohort", innovation:3, community:4, water:1, visibility:3, civil:2 },
+  { name:"Humand", category:"HR / workforce software", round:"Series A, $66M", vertical:"Community", type:"Q1 Cohort", innovation:3, community:4, water:1, visibility:3, civil:2 },
+  { name:"Encord", category:"AI data infrastructure", round:"Series C, $60M", vertical:"AI", type:"Q1 Cohort", innovation:4, community:2, water:1, visibility:4, civil:1 },
+  { name:"BreezeBio", category:"Biotech / pharma", round:"Series B, $60M", vertical:"Health", type:"Q1 Cohort", innovation:4, community:3, water:1, visibility:3, civil:2 },
+  { name:"Gambit Security", category:"Cybersecurity / AI", round:"Series A, $56M", vertical:"AI", type:"Q1 Cohort", innovation:4, community:2, water:1, visibility:3, civil:1 },
+  { name:"FirmPilot", category:"Legal marketing AI", round:"Series A, $22M", vertical:"AI", type:"Q1 Cohort", innovation:4, community:2, water:1, visibility:2, civil:1 },
+  { name:"Wishlink", category:"Commerce / creator-marketplace", round:"Series B, $17.5M", vertical:"Commerce", type:"Q1 Cohort", innovation:3, community:3, water:1, visibility:2, civil:2 },
+  { name:"Mojo AI", category:"Construction AI", round:"Series B, $10M", vertical:"Infrastructure", type:"Q1 Cohort", innovation:4, community:3, water:2, visibility:2, civil:4 },
+  { name:"7Rivers", category:"Data / analytics / AI", round:"Series A, $5M", vertical:"AI", type:"Q1 Cohort", innovation:3, community:2, water:1, visibility:2, civil:1 },
+  { name:"Mirai Robotics", category:"Robotics / gov / marine hardware", round:"Pre-Seed, $4.1M", vertical:"Infrastructure", type:"Q1 Cohort", innovation:4, community:2, water:3, visibility:1, civil:5 },
+  { name:"Jampack AI", category:"Logistics / retail AI", round:"Seed, $3.2M", vertical:"Infrastructure", type:"Q1 Cohort", innovation:3, community:3, water:2, visibility:1, civil:4 },
+  { name:"Flo Mobility", category:"EV / automotive / robotics", round:"Seed, $2.5M", vertical:"Infrastructure", type:"Q1 Cohort", innovation:4, community:3, water:2, visibility:1, civil:5 },
+];
+
+// Q2 companies — add here before June 30 release
+const q2Companies = [];
+
+let activeTab = 'q1';
+let q1State = { sortKey:'innovation', sortDir:-1, filterVertical:'', search:'' };
+
+function scoreClass(n) { return ['','s1','s2','s3','s4','s5'][n] || 's1'; }
+
+function tagHTML(type) {
+  const map = { 'Q1 Cohort':'tag-q1 Q1', 'Q2 Cohort':'tag-q2 Q2', 'Accelerator':'tag-accel Accel', 'Funded':'tag-funded Funded' };
+  const v = map[type] || 'tag-funded ' + type;
+  const parts = v.split(' ');
+  return `<span class="tag ${parts[0]}">${parts.slice(1).join(' ')}</span>`;
+}
+
+function setTab(tab) {
+  activeTab = tab;
+  document.getElementById('page-q1').classList.toggle('active', tab === 'q1');
+  document.getElementById('page-q2').classList.toggle('active', tab === 'q2');
+  const q1Btn = document.getElementById('tab-q1');
+  const q2Btn = document.getElementById('tab-q2');
+  q1Btn.className = 'tab-btn' + (tab === 'q1' ? ' active-q1' : '');
+  q2Btn.className = 'tab-btn' + (tab === 'q2' ? ' active-q2' : '');
+  document.getElementById('footer-report-label').textContent = tab === 'q1' ? 'Q1 2026 · Pilot' : 'Q2 2026 · Infrastructure';
+  document.getElementById('footer-pdf-link').textContent = tab === 'q1' ? '↓ Download Q1 report (PDF)' : '↓ Download Q2 report (PDF)';
+}
+
+function renderMetrics(data, prefix) {
+  const avg = key => data.length ? (data.reduce((s,c)=>s+c[key],0)/data.length).toFixed(1) : '—';
+  const top = data.filter(c => c.innovation >= 4).length;
+  const infra = data.filter(c => c.civil >= 4).length;
+  document.getElementById(prefix+'-metrics').innerHTML = `
+    <div class="metric"><div class="metric-label">Companies tracked</div><div class="metric-value">${data.length}</div></div>
+    <div class="metric"><div class="metric-label">Avg innovation</div><div class="metric-value">${avg('innovation')}</div></div>
+    <div class="metric"><div class="metric-label">Avg community</div><div class="metric-value">${avg('community')}</div></div>
+    <div class="metric"><div class="metric-label">High innovators</div><div class="metric-value">${top}</div></div>
+    <div class="metric"><div class="metric-label">Infra builders</div><div class="metric-value">${infra}</div></div>
+  `;
+}
+
+function renderTable(data, prefix, accentColor) {
+  const tbody = document.getElementById(prefix+'-table-body');
+  const empty = document.getElementById(prefix+'-empty');
+  const count = document.getElementById(prefix+'-row-count');
+  const source = prefix === 'q1' ? q1Companies : q2Companies;
+
+  if (data.length === 0) {
+    tbody.innerHTML = '';
+    if (empty) empty.style.display = 'block';
+    if (count) count.textContent = '';
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+  if (count) count.textContent = `Showing ${data.length} of ${source.length} companies`;
+
+  tbody.innerHTML = data.map(c => {
+    const hl = c.innovation >= 4 && c.civil >= 4 ? 'highlight-row' : '';
+    return `<tr class="${hl}">
+      <td><div class="company-name">${c.name}${tagHTML(c.type)}</div><div class="company-category">${c.category}</div></td>
+      <td class="round-text">${c.round}</td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.innovation)}">${c.innovation}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.community)}">${c.community}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.water)}">${c.water}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.visibility)}">${c.visibility}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.civil)}">${c.civil}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function q1Render() {
+  const s = q1State;
+  let data = q1Companies.filter(c => {
+    const q = s.search.toLowerCase();
+    return (!q || c.name.toLowerCase().includes(q) || c.category.toLowerCase().includes(q))
+      && (!s.filterVertical || c.vertical === s.filterVertical);
+  });
+  data.sort((a,b) => {
+    let av = a[s.sortKey], bv = b[s.sortKey];
+    return typeof av === 'string' ? s.sortDir * av.localeCompare(bv) : s.sortDir * (bv - av);
+  });
+  renderMetrics(data, 'q1');
+  renderTable(data, 'q1');
+}
+
+function q1SortBy(key) {
+  const keys = ['name','round','innovation','community','water','visibility','civil'];
+  keys.forEach(k => {
+    const el = document.getElementById('q1-arr-'+k);
+    if (el) el.textContent = '';
+    const th = document.querySelector(`#page-q1 th[onclick="q1SortBy('${k}')"]`);
+    if (th) th.classList.remove('sorted');
+  });
+  if (q1State.sortKey === key) { q1State.sortDir *= -1; } else { q1State.sortKey = key; q1State.sortDir = -1; }
+  const arrowEl = document.getElementById('q1-arr-'+key);
+  if (arrowEl) arrowEl.textContent = q1State.sortDir === -1 ? ' ↓' : ' ↑';
+  const thEl = document.querySelector(`#page-q1 th[onclick="q1SortBy('${key}')"]`);
+  if (thEl) thEl.classList.add('sorted');
+  q1Render();
+}
+
+document.getElementById('q1-search').addEventListener('input', e => { q1State.search = e.target.value; q1Render(); });
+document.getElementById('q1-filter-vertical').addEventListener('change', e => { q1State.filterVertical = e.target.value; q1Render(); });
+document.getElementById('q1-sort-col').addEventListener('change', e => { q1SortBy(e.target.value); });
+
+q1Render();
+</script>
+</body>
+</html>
