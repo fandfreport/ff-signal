@@ -97,6 +97,7 @@
     .tab-btn:hover { color: var(--text-secondary); }
     .tab-btn.active-q1 { color: var(--accent-q1); border-bottom-color: var(--accent-q1); }
     .tab-btn.active-q2 { color: var(--accent-q2); border-bottom-color: var(--accent-q2); }
+    .tab-btn.active-fw { color: #0F6E56; border-bottom-color: #0F6E56; }
     .tab-pill {
       font-size: 9px;
       font-weight: 600;
@@ -106,7 +107,43 @@
     }
     .tab-btn.active-q1 .tab-pill { background: var(--accent-q1-light); color: var(--accent-q1-dark); }
     .tab-btn.active-q2 .tab-pill { background: var(--accent-q2-light); color: var(--accent-q2-dark); }
-    .tab-btn:not(.active-q1):not(.active-q2) .tab-pill { background: var(--bg-secondary); color: var(--text-tertiary); }
+    .tab-btn.active-fw .tab-pill { background: #E1F5EE; color: #085041; }
+    .tab-btn:not(.active-q1):not(.active-q2):not(.active-fw) .tab-pill { background: var(--bg-secondary); color: var(--text-tertiary); }
+
+    /* FRAMEWORK PAGE */
+    .fw-hero { padding: 4rem 2rem 3rem; border-bottom: 1px solid var(--border); background: linear-gradient(140deg, #E1F5EE 0%, #FAFAF8 55%, #F3F1EB 100%); }
+    .fw-hero-inner { max-width: 860px; margin: 0 auto; }
+    .fw-eyebrow { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: #0F6E56; margin-bottom: 1rem; }
+    .fw-title { font-family: var(--font-display); font-size: clamp(36px, 6vw, 64px); font-weight: 800; line-height: 0.95; letter-spacing: -0.045em; color: var(--text-primary); margin-bottom: 1.1rem; }
+    .fw-title span { color: #0F6E56; }
+    .fw-sub { font-size: 14px; color: var(--text-secondary); max-width: 480px; line-height: 1.65; font-weight: 300; }
+    .fw-proprietary { display: inline-flex; align-items: center; gap: 8px; margin-top: 1.5rem; font-size: 11px; font-weight: 600; padding: 7px 14px; border-radius: 99px; background: #1A1A18; color: #FAFAF8; letter-spacing: 0.04em; }
+    .fw-section { padding: 2.5rem 2rem; border-bottom: 1px solid var(--border); background: var(--bg-card); }
+    .fw-section-inner { max-width: 860px; margin: 0 auto; }
+    .fw-dimension { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1rem; }
+    .fw-dimension:last-child { margin-bottom: 0; }
+    .fw-dim-header { display: flex; align-items: flex-start; gap: 1rem; padding: 1.1rem 1.4rem; border-bottom: 1px solid var(--border); background: var(--bg-secondary); }
+    .fw-dim-num { font-family: var(--font-display); font-size: 10px; font-weight: 800; color: #0F6E56; letter-spacing: 0.08em; margin-top: 3px; white-space: nowrap; }
+    .fw-dim-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 3px; }
+    .fw-dim-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    .fw-scale { display: grid; grid-template-columns: repeat(5, 1fr); }
+    .fw-scale-item { padding: 0.9rem 1rem; border-right: 1px solid var(--border); }
+    .fw-scale-item:last-child { border-right: none; }
+    .fw-scale-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 600; margin-bottom: 5px; }
+    .fw-scale-label { font-size: 11px; font-weight: 500; color: var(--text-primary); margin-bottom: 3px; line-height: 1.3; }
+    .fw-scale-desc { font-size: 10px; color: var(--text-secondary); line-height: 1.45; }
+    .fw-notice { padding: 2rem 2rem 3rem; }
+    .fw-notice-inner { max-width: 860px; margin: 0 auto; background: #1A1A18; border-radius: var(--radius-lg); padding: 2rem 2.5rem; display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
+    .fw-notice-mark { font-family: var(--font-display); font-size: 26px; font-weight: 800; color: #FAFAF8; letter-spacing: -0.04em; flex-shrink: 0; }
+    .fw-notice-text { flex: 1; min-width: 200px; }
+    .fw-notice-title { font-size: 13px; font-weight: 500; color: #FAFAF8; margin-bottom: 6px; }
+    .fw-notice-body { font-size: 12px; color: #9E9E99; line-height: 1.65; }
+    @media (max-width: 640px) {
+      .fw-scale { grid-template-columns: 1fr 1fr; }
+      .fw-scale-item { border-bottom: 1px solid var(--border); }
+      .fw-scale-item:nth-child(even) { border-right: none; }
+      .fw-scale-item:nth-last-child(-n+1) { border-bottom: none; }
+    }
 
     .nav-right {
       display: flex;
@@ -465,6 +502,9 @@
       <button class="tab-btn" id="tab-q2" onclick="setTab('q2')">
         Q2 2026 <span class="tab-pill">Jun 30</span>
       </button>
+      <button class="tab-btn" id="tab-fw" onclick="setTab('fw')">
+        Framework <span class="tab-pill">F&F</span>
+      </button>
     </div>
   </div>
   <div class="nav-right">
@@ -655,6 +695,129 @@
 
 </div>
 
+<!-- ══════════════════════════════════════ FRAMEWORK PAGE ══════════════════════════════════════ -->
+<div class="page" id="page-fw">
+
+  <section class="fw-hero">
+    <div class="fw-hero-inner">
+      <div class="fw-eyebrow">Scoring Framework · Proprietary</div>
+      <h1 class="fw-title">F&F <span>Core</span><br>Framework</h1>
+      <p class="fw-sub">Five dimensions used to identify, evaluate, and rank early-stage companies shaping both the digital and physical systems of the future.</p>
+      <div class="fw-proprietary">
+        <span class="fw-lock">⬛</span> Proprietary to Friends & Family · All rights reserved
+      </div>
+    </div>
+  </section>
+
+  <section class="fw-section">
+    <div class="fw-section-inner">
+      <div class="section-eyebrow" style="margin-bottom:1.25rem;">Five scoring dimensions</div>
+
+      <!-- Innovation -->
+      <div class="fw-dimension">
+        <div class="fw-dim-header">
+          <div class="fw-dim-num">01</div>
+          <div>
+            <div class="fw-dim-title">Innovation Score</div>
+            <div class="fw-dim-desc">How novel and category-defining the product or technology is — from incremental improvement to a breakthrough that creates an entirely new market.</div>
+          </div>
+        </div>
+        <div class="fw-scale">
+          <div class="fw-scale-item"><span class="fw-scale-num s1">1</span><div class="fw-scale-label">Incremental</div><div class="fw-scale-desc">Minor improvement on existing solutions</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s2">2</span><div class="fw-scale-label">Differentiated</div><div class="fw-scale-desc">Somewhat differentiated from competitors</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s3">3</span><div class="fw-scale-label">Clearly novel</div><div class="fw-scale-desc">Clearly differentiated approach or model</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s4">4</span><div class="fw-scale-label">Highly innovative</div><div class="fw-scale-desc">Significant technical or market innovation</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s5">5</span><div class="fw-scale-label">Breakthrough</div><div class="fw-scale-desc">Category-defining; creates a new paradigm</div></div>
+        </div>
+      </div>
+
+      <!-- Community -->
+      <div class="fw-dimension">
+        <div class="fw-dim-header">
+          <div class="fw-dim-num">02</div>
+          <div>
+            <div class="fw-dim-title">Community Advancement Score</div>
+            <div class="fw-dim-desc">How much the company improves access, opportunity, or quality of life — from negligible community benefit to transformational effects on equity and livelihoods.</div>
+          </div>
+        </div>
+        <div class="fw-scale">
+          <div class="fw-scale-item"><span class="fw-scale-num s1">1</span><div class="fw-scale-label">Minimal</div><div class="fw-scale-desc">Little to no direct community benefit</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s2">2</span><div class="fw-scale-label">Indirect</div><div class="fw-scale-desc">Indirect benefit through economic activity</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s3">3</span><div class="fw-scale-label">Moderate</div><div class="fw-scale-desc">Meaningful improvement to access or efficiency</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s4">4</span><div class="fw-scale-label">Strong</div><div class="fw-scale-desc">Strong positive workforce or community effect</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s5">5</span><div class="fw-scale-label">Transformational</div><div class="fw-scale-desc">Transformational impact on access, equity, or livelihoods</div></div>
+        </div>
+      </div>
+
+      <!-- Water -->
+      <div class="fw-dimension">
+        <div class="fw-dim-header">
+          <div class="fw-dim-num">03</div>
+          <div>
+            <div class="fw-dim-title">Water Score</div>
+            <div class="fw-dim-desc">Impact on water systems — spanning access, conservation, infrastructure, and resilience. A core F&F lens reflecting the belief that water is the defining infrastructure challenge of the next era.</div>
+          </div>
+        </div>
+        <div class="fw-scale">
+          <div class="fw-scale-item"><span class="fw-scale-num s1">1</span><div class="fw-scale-label">None</div><div class="fw-scale-desc">No meaningful connection to water systems</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s2">2</span><div class="fw-scale-label">Weak</div><div class="fw-scale-desc">Weak or indirect environmental relevance</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s3">3</span><div class="fw-scale-label">Adjacent</div><div class="fw-scale-desc">Some sustainability or resource-efficiency relevance</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s4">4</span><div class="fw-scale-label">Contributing</div><div class="fw-scale-desc">Clear contribution to water-adjacent resilience</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s5">5</span><div class="fw-scale-label">Direct impact</div><div class="fw-scale-desc">Direct water infrastructure, access, or conservation impact</div></div>
+        </div>
+      </div>
+
+      <!-- Visibility -->
+      <div class="fw-dimension">
+        <div class="fw-dim-header">
+          <div class="fw-dim-num">04</div>
+          <div>
+            <div class="fw-dim-title">Market Visibility</div>
+            <div class="fw-dim-desc">How widely known or discussed the company is today — used to identify hidden innovators operating below the radar of mainstream VC and tech media attention.</div>
+          </div>
+        </div>
+        <div class="fw-scale">
+          <div class="fw-scale-item"><span class="fw-scale-num s1">1</span><div class="fw-scale-label">Unknown</div><div class="fw-scale-desc">Almost entirely unknown outside founder networks</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s2">2</span><div class="fw-scale-label">Niche aware</div><div class="fw-scale-desc">Early awareness in a specific niche community</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s3">3</span><div class="fw-scale-label">Growing</div><div class="fw-scale-desc">Growing startup-ecosystem attention</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s4">4</span><div class="fw-scale-label">Widely known</div><div class="fw-scale-desc">Widely discussed in VC and tech media</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s5">5</span><div class="fw-scale-label">Mainstream</div><div class="fw-scale-desc">Highly visible; mainstream coverage and awareness</div></div>
+        </div>
+      </div>
+
+      <!-- Civil Infrastructure -->
+      <div class="fw-dimension">
+        <div class="fw-dim-header">
+          <div class="fw-dim-num">05</div>
+          <div>
+            <div class="fw-dim-title">Civil Infrastructure Score</div>
+            <div class="fw-dim-desc">How much the business depends on or contributes to physical infrastructure systems — distinguishing pure software plays from companies deeply embedded in the built world.</div>
+          </div>
+        </div>
+        <div class="fw-scale">
+          <div class="fw-scale-item"><span class="fw-scale-num s1">1</span><div class="fw-scale-label">Fully digital</div><div class="fw-scale-desc">Almost entirely software; no physical dependency</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s2">2</span><div class="fw-scale-label">Light physical</div><div class="fw-scale-desc">Light physical dependency or distribution</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s3">3</span><div class="fw-scale-label">Moderate</div><div class="fw-scale-desc">Moderate logistics, facility, or public-system reliance</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s4">4</span><div class="fw-scale-label">Heavy reliance</div><div class="fw-scale-desc">Heavy reliance on transport, utilities, robotics, or physical networks</div></div>
+          <div class="fw-scale-item"><span class="fw-scale-num s5">5</span><div class="fw-scale-label">Deeply tied</div><div class="fw-scale-desc">Core business tied to energy, mobility, manufacturing, or public systems</div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="fw-notice">
+    <div class="fw-notice-inner">
+      <div class="fw-notice-mark">F&F</div>
+      <div class="fw-notice-text">
+        <div class="fw-notice-title">Proprietary intellectual property</div>
+        <div class="fw-notice-body">The F&F Core Scoring Framework — including all five dimensions, their definitions, and scoring rubrics — is proprietary to Friends & Family. All scores, assessments, and editorial judgments produced using this framework are owned exclusively by F&F. Reproduction, adaptation, or commercial use of this framework without written permission is prohibited. For licensing or partnership inquiries, contact F&F directly.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -713,12 +876,17 @@ function setTab(tab) {
   activeTab = tab;
   document.getElementById('page-q1').classList.toggle('active', tab === 'q1');
   document.getElementById('page-q2').classList.toggle('active', tab === 'q2');
+  document.getElementById('page-fw').classList.toggle('active', tab === 'fw');
   const q1Btn = document.getElementById('tab-q1');
   const q2Btn = document.getElementById('tab-q2');
+  const fwBtn = document.getElementById('tab-fw');
   q1Btn.className = 'tab-btn' + (tab === 'q1' ? ' active-q1' : '');
   q2Btn.className = 'tab-btn' + (tab === 'q2' ? ' active-q2' : '');
-  document.getElementById('footer-report-label').textContent = tab === 'q1' ? 'Q1 2026 · Pilot' : 'Q2 2026 · Infrastructure';
-  document.getElementById('footer-pdf-link').textContent = tab === 'q1' ? '↓ Download Q1 report (PDF)' : '↓ Download Q2 report (PDF)';
+  fwBtn.className = 'tab-btn' + (tab === 'fw' ? ' active-fw' : '');
+  const labels = { q1: 'Q1 2026 · Pilot', q2: 'Q2 2026 · Infrastructure', fw: 'Scoring Framework' };
+  const pdfs = { q1: '↓ Download Q1 report (PDF)', q2: '↓ Download Q2 report (PDF)', fw: '↓ Download Q1 report (PDF)' };
+  document.getElementById('footer-report-label').textContent = labels[tab];
+  document.getElementById('footer-pdf-link').textContent = pdfs[tab];
 }
 
 function renderMetrics(data, prefix) {
