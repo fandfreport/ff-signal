@@ -341,12 +341,17 @@
 
     .table-wrap {
       overflow-x: auto;
+      overflow-y: auto;
+      max-height: 65vh;
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       background: var(--bg-card);
     }
     table { width: 100%; border-collapse: collapse; font-size: 12px; }
     thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
       font-size: 10px;
       font-weight: 500;
       color: var(--text-secondary);
@@ -404,7 +409,7 @@
     .tag-accel { background: #E1F5EE; color: #085041; }
     .tag-funded { background: #E6F1FB; color: #185FA5; }
 
-    .highlight-row td:first-child { border-left: 2px solid var(--accent-q1); }
+    .highlight-row td:first-child { border-left: 2px solid var(--row-accent, var(--accent-q1)); }
 
     .row-count {
       font-size: 11px;
@@ -478,6 +483,171 @@
     .footer-meta a { color: var(--accent-q1); text-decoration: none; }
     .footer-meta a:hover { text-decoration: underline; }
 
+    /* SCORE TOOLTIP */
+    .score-tooltip {
+      position: fixed;
+      background: var(--text-primary);
+      color: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      font-size: 11px;
+      line-height: 1.5;
+      pointer-events: none;
+      z-index: 400;
+      max-width: 210px;
+      display: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    }
+    .score-tooltip-dim {
+      font-size: 10px;
+      font-weight: 500;
+      opacity: 0.6;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 3px;
+    }
+    .score-tooltip-val {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 2px;
+    }
+    .score-tooltip-desc { opacity: 0.85; }
+    .score-pip { cursor: default; }
+    .gate-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,8,0.55);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .gate-overlay.open { display: flex; }
+    .gate-modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 400px;
+      margin: 1rem;
+      position: relative;
+    }
+    .gate-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      transition: color 0.15s, background 0.15s;
+    }
+    .gate-close:hover { color: var(--text-primary); background: var(--bg-secondary); }
+    .gate-mark {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+    .gate-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .gate-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .gate-input-wrap { display: flex; flex-direction: column; gap: 8px; }
+    .gate-input {
+      font-family: var(--font-body);
+      font-size: 13px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .gate-input:focus { border-color: var(--accent-q1); }
+    .gate-submit {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: var(--text-primary);
+      color: var(--bg-card);
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .gate-submit:hover { opacity: 0.85; }
+    .gate-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .gate-error { font-size: 12px; color: #A32D2D; margin-top: 4px; display: none; }
+    .gate-success-state { display: none; text-align: center; padding: 1rem 0; }
+    .gate-success-icon { font-size: 32px; margin-bottom: 0.75rem; }
+    .gate-success-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.4rem;
+    }
+    .gate-success-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 1.5rem; }
+    .gate-dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--accent-q1);
+      background: transparent;
+      color: var(--accent-q1);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .gate-dl-btn:hover { background: var(--accent-q1); color: #fff; }
+    .gate-fine {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-align: center;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+    .footer-dl-btn {
+      background: none;
+      border: none;
+      color: var(--accent-q1);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 11px;
+      padding: 0;
+      text-decoration: none;
+    }
+    .footer-dl-btn:hover { text-decoration: underline; }
+
     @media (max-width: 680px) {
       nav { padding: 0 1rem; }
       .hero { padding: 3rem 1rem 2.5rem; }
@@ -508,9 +678,9 @@
     </div>
   </div>
   <div class="nav-right">
-    <a class="btn-download" id="nav-download" href="https://drive.google.com/file/d/1ODaeWHh_6Kna9YebPXLB1QItS9fkde8X/view?usp=sharing" target="_blank">
+    <button class="btn-download" id="nav-download" onclick="openGate()">
       ↓ Download report
-    </a>
+    </button>
   </div>
 </nav>
 
@@ -589,12 +759,8 @@
         </select>
       </div>
       <div class="score-legend">
-        <span style="font-size:10px; color:var(--text-tertiary); margin-right:2px;">Score:</span>
-        <span class="legend-item"><span class="legend-dot" style="background:#B4B2A9"></span>1 minimal</span>
-        <span class="legend-item"><span class="legend-dot" style="background:#85B7EB"></span>2 indirect</span>
-        <span class="legend-item"><span class="legend-dot" style="background:#97C459"></span>3 moderate</span>
-        <span class="legend-item"><span class="legend-dot" style="background:#EF9F27"></span>4 strong</span>
-        <span class="legend-item"><span class="legend-dot" style="background:#D85A30"></span>5 breakthrough</span>
+        <span style="font-size:10px; color:var(--text-tertiary); margin-right:2px;" id="q1-legend-label">Innovation:</span>
+        <span id="q1-legend-scores" style="display:contents;"></span>
         <span class="legend-item" style="margin-left:8px; padding-left:8px; border-left:1px solid var(--border);">
           <span style="display:inline-block;width:3px;height:13px;background:var(--accent-q1);border-radius:1px;margin-right:5px;"></span>
           Infra standout (Innov ≥4 + Civil ≥4)
@@ -682,12 +848,73 @@
 
   <section class="index-section">
     <div class="index-inner">
-      <div class="section-eyebrow" style="margin-bottom:1.1rem;">Q2 signal index · 50 companies</div>
 
-      <div class="q2-placeholder">
-        <div class="q2-placeholder-title">Index in progress</div>
-        <div class="q2-placeholder-sub">50 infrastructure startups — accelerator cohorts and independently funded — are being researched and scored now.</div>
-        <div class="q2-placeholder-date">RELEASING JUNE 30, 2026</div>
+      <!-- Coming soon — shown before June 30, 2026 -->
+      <div id="q2-coming-soon">
+        <div style="padding: 3.5rem 2rem; text-align: center; border: 1px dashed var(--border-strong); border-radius: var(--radius-lg); background: var(--bg-card);">
+          <div style="font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: -0.035em; color: var(--text-primary); margin-bottom: 0.5rem;">Index dropping June 30</div>
+          <div style="font-size: 13px; color: var(--text-secondary); max-width: 360px; margin: 0 auto 1.5rem; line-height: 1.65;">50 infrastructure startups — accelerator cohorts and independently funded — scored across all five F&F dimensions.</div>
+          <div style="display: inline-block; font-size: 11px; font-weight: 600; padding: 6px 16px; border-radius: 99px; background: var(--accent-q2-light); color: var(--accent-q2-dark); letter-spacing: 0.06em;">JUNE 30, 2026</div>
+        </div>
+      </div>
+
+      <!-- Full index — revealed June 30, 2026 -->
+      <div id="q2-index-full">
+        <div class="section-eyebrow" style="margin-bottom:1.1rem;">Q2 signal index · 50 companies</div>
+        <div class="metrics" id="q2-metrics"></div>
+        <div class="controls">
+          <input type="text" id="q2-search" placeholder="Search by company or category…" />
+          <select id="q2-filter-vertical">
+            <option value="">All verticals</option>
+            <option value="Infrastructure">Infrastructure & systems</option>
+            <option value="AI">AI & digital infra</option>
+            <option value="Health">Health & human systems</option>
+            <option value="Commerce">Commerce & culture</option>
+            <option value="Community">Community advancement</option>
+          </select>
+          <select id="q2-filter-type">
+            <option value="">All types</option>
+            <option value="Q2 Cohort">Q2 cohort</option>
+            <option value="Accelerator">Accelerator</option>
+          </select>
+          <select id="q2-sort-col">
+            <option value="innovation">Sort: Innovation</option>
+            <option value="community">Sort: Community</option>
+            <option value="water">Sort: Water</option>
+            <option value="visibility">Sort: Visibility</option>
+            <option value="civil">Sort: Civil infra</option>
+            <option value="name">Sort: Name A–Z</option>
+          </select>
+        </div>
+        <div class="score-legend">
+          <span style="font-size:10px; color:var(--text-tertiary); margin-right:2px;" id="q2-legend-label">Innovation:</span>
+          <span id="q2-legend-scores" style="display:contents;"></span>
+          <span class="legend-item" style="margin-left:8px; padding-left:8px; border-left:1px solid var(--border);">
+            <span style="display:inline-block;width:3px;height:13px;background:var(--accent-q2);border-radius:1px;margin-right:5px;"></span>
+            Infra standout (Innov ≥4 + Civil ≥4)
+          </span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th onclick="q2SortBy('name')" style="min-width:170px;">Company <span id="q2-arr-name"></span></th>
+                <th onclick="q2SortBy('round')" style="min-width:120px;">Round <span id="q2-arr-round"></span></th>
+                <th onclick="q2SortBy('innovation')" class="sorted" style="width:68px;text-align:center;">Innov <span id="q2-arr-innovation">↓</span></th>
+                <th onclick="q2SortBy('community')" style="width:68px;text-align:center;">Comm <span id="q2-arr-community"></span></th>
+                <th onclick="q2SortBy('water')" style="width:65px;text-align:center;">Water <span id="q2-arr-water"></span></th>
+                <th onclick="q2SortBy('visibility')" style="width:65px;text-align:center;">Visib <span id="q2-arr-visibility"></span></th>
+                <th onclick="q2SortBy('civil')" style="width:65px;text-align:center;">Civil <span id="q2-arr-civil"></span></th>
+              </tr>
+            </thead>
+            <tbody id="q2-table-body"></tbody>
+          </table>
+        </div>
+        <div id="q2-empty" class="empty" style="display:none;">
+          <div class="empty-big">—</div>
+          No companies match your filters.
+        </div>
+        <div class="row-count" id="q2-row-count"></div>
       </div>
 
     </div>
@@ -828,7 +1055,7 @@
     <div class="footer-meta">
       <div>Friends & Family Signal</div>
       <div id="footer-report-label">Q1 2026 · Pilot</div>
-      <div><a href="YOUR_PDF_LINK_HERE" id="footer-pdf-link">↓ Download Q1 report (PDF)</a></div>
+      <div><button class="footer-dl-btn" id="footer-pdf-link" onclick="openGate()">↓ Download Q1 report (PDF)</button></div>
     </div>
   </div>
 </footer>
@@ -858,10 +1085,64 @@ const q1Companies = [
 ];
 
 // Q2 companies — add here before June 30 release
-const q2Companies = [];
+const q2Companies = [
+  // Infrastructure & systems
+  { name:"Eavor", category:"Geothermal / closed-loop energy", round:"Series D, $65M, Jun 2025", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:2, visibility:3, civil:5 },
+  { name:"Heron Power", category:"Grid hardware / renewable integration", round:"Growth, $140M, Feb 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:2, visibility:3, civil:5 },
+  { name:"Valar Atomics", category:"Nuclear microreactors / grid-independent", round:"Growth, $450M, Apr 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:4, water:2, visibility:3, civil:5 },
+  { name:"X-energy", category:"Small modular reactors / advanced nuclear", round:"Series D, $700M, Nov 2025", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:2, visibility:4, civil:5 },
+  { name:"Upwell Water", category:"Water asset management / supply as a service", round:"Growth, 2025", vertical:"Infrastructure", type:"Q2 Cohort", innovation:3, community:4, water:5, visibility:2, civil:5 },
+  { name:"Vero Networks", category:"Fiber broadband / digital infrastructure", round:"Growth, $500M, Feb 2026", vertical:"Community", type:"Q2 Cohort", innovation:3, community:5, water:1, visibility:3, civil:5 },
+  { name:"Ubicquia", category:"Smart city / grid monitoring / public safety IoT", round:"Series D, $106M, Mar 2026", vertical:"Community", type:"Q2 Cohort", innovation:4, community:4, water:2, visibility:3, civil:5 },
+  { name:"Nuclearn", category:"AI for nuclear plant operations", round:"Series A, $10.5M, 2025", vertical:"AI", type:"Q2 Cohort", innovation:4, community:3, water:2, visibility:1, civil:5 },
+  { name:"Xpanner", category:"Construction automation-as-a-service", round:"Series B, $18M, May 2026", vertical:"Infrastructure", type:"Accelerator", innovation:4, community:3, water:1, visibility:2, civil:5 },
+  { name:"Waabi", category:"AI-first autonomous trucking", round:"Series C, $750M, 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:1, visibility:4, civil:4 },
+  { name:"Mind Robotics", category:"Industrial robotics platform / physical AI", round:"Series A, $500M, Mar 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:2, water:1, visibility:4, civil:4 },
+  { name:"Rhoda AI", category:"Industrial automation / physical AI", round:"Series A, $450M, Mar 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:2, water:1, visibility:3, civil:4 },
+  { name:"Zanskar", category:"AI-powered geothermal exploration", round:"Series C, $70M, 2025", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:3, visibility:2, civil:4 },
+  { name:"Factor2 Energy", category:"CO₂-based geothermal technology", round:"Seed, $9.1M, Sep 2025", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:3, visibility:1, civil:4 },
+  { name:"Nexthop AI", category:"AI networking / data center switching", round:"Series B, $500M, Mar 2026", vertical:"AI", type:"Q2 Cohort", innovation:5, community:2, water:1, visibility:4, civil:2 },
+  { name:"AtmosZero", category:"Industrial heat pumps / decarbonization", round:"Commercial, 2025", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:2, visibility:2, civil:4 },
+  { name:"Oxyle", category:"PFAS destruction / water purification", round:"Seed, $17M, 2025", vertical:"Community", type:"Q2 Cohort", innovation:5, community:5, water:5, visibility:1, civil:3 },
+  { name:"Shine Technologies", category:"Fusion energy / medical isotopes", round:"Equity, $240M, Mar 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:1, visibility:3, civil:3 },
+  { name:"Starcloud", category:"Orbital data centers / space infrastructure", round:"Series A, $170M, Apr 2026", vertical:"Infrastructure", type:"Accelerator", innovation:5, community:2, water:1, visibility:3, civil:4 },
+  { name:"Avride", category:"Autonomous delivery / sidewalk robotics", round:"Series B, $375M, 2025", vertical:"Infrastructure", type:"Q2 Cohort", innovation:4, community:4, water:1, visibility:3, civil:4 },
+  { name:"Also", category:"Electric micromobility / autonomous EVs", round:"Series C, $200M, Mar 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:4, community:4, water:1, visibility:3, civil:4 },
+  { name:"Pani Energy", category:"AI optimization for water treatment", round:"Series B, 2025", vertical:"Infrastructure", type:"Q2 Cohort", innovation:4, community:4, water:5, visibility:2, civil:3 },
+  { name:"FREDsense", category:"Biosensor water quality / PFAS detection", round:"Series A, 2025", vertical:"Community", type:"Q2 Cohort", innovation:4, community:4, water:5, visibility:1, civil:2 },
+  { name:"Citylitics", category:"Predictive intelligence for utility markets", round:"Series B, 2025", vertical:"AI", type:"Q2 Cohort", innovation:4, community:3, water:3, visibility:2, civil:3 },
+  { name:"RoboForce", category:"AI-enabled robot labor / industrial", round:"Seed, $52M, Mar 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:4, community:3, water:1, visibility:2, civil:4 },
+  { name:"Flux Auto", category:"Autonomous vehicles for industry / farms / mines", round:"Seed, YC 2025", vertical:"Infrastructure", type:"Accelerator", innovation:4, community:3, water:1, visibility:1, civil:4 },
+  { name:"SixWheel", category:"Diesel-to-hybrid truck conversion at zero upfront cost", round:"Seed, YC 2025", vertical:"Infrastructure", type:"Accelerator", innovation:4, community:3, water:1, visibility:1, civil:4 },
+  { name:"Steady Energy", category:"Small modular reactors / district heating", round:"Series B, $36M, Jul 2025", vertical:"Community", type:"Q2 Cohort", innovation:4, community:5, water:2, visibility:1, civil:4 },
+  { name:"HappyRobot", category:"AI operating system for supply chain", round:"Seed, YC 2025", vertical:"AI", type:"Accelerator", innovation:4, community:3, water:1, visibility:2, civil:3 },
+  { name:"Findhelp", category:"Social care coordination / community access", round:"Growth, $250M, Mar 2026", vertical:"Community", type:"Q2 Cohort", innovation:3, community:5, water:1, visibility:3, civil:2 },
+  // Wave 2 — ChatGPT list + research additions
+  { name:"Commonwealth Fusion Systems", category:"Fusion energy / SPARC reactor development", round:"Series B2, $863M", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:2, visibility:5, civil:5 },
+  { name:"Figure AI", category:"General-purpose humanoid robotics at scale", round:"Series C, $1B+", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:1, visibility:5, civil:4 },
+  { name:"Form Energy", category:"Iron-air batteries / 100-hour grid storage", round:"Series F, $405M", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:4, water:2, visibility:4, civil:5 },
+  { name:"Hadrian", category:"Automated factories / aerospace & defense manufacturing", round:"Series C, $260M", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:1, visibility:3, civil:5 },
+  { name:"Electric Hydrogen", category:"Green hydrogen electrolyzers / industrial decarbonization", round:"Series C, $380M", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:3, visibility:3, civil:5 },
+  { name:"Redwood Materials", category:"EV battery recycling / second-life grid storage", round:"Series E, $425M", vertical:"Infrastructure", type:"Q2 Cohort", innovation:4, community:3, water:2, visibility:4, civil:4 },
+  { name:"Gradiant", category:"Industrial water treatment / AI & semiconductor fabs", round:"Series D+, $225M", vertical:"Infrastructure", type:"Q2 Cohort", innovation:4, community:3, water:5, visibility:3, civil:4 },
+  { name:"SOURCE Global", category:"Atmospheric water generation / hydropanels", round:"Series D, $130M", vertical:"Community", type:"Q2 Cohort", innovation:5, community:5, water:5, visibility:3, civil:3 },
+  { name:"BlocPower", category:"Building electrification / underserved communities", round:"$150M equity + debt", vertical:"Community", type:"Q2 Cohort", innovation:4, community:5, water:2, visibility:3, civil:4 },
+  { name:"Skild AI", category:"General-purpose robotics foundation model", round:"Growth, $1.4B, Jan 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:2, water:1, visibility:4, civil:4 },
+  { name:"Einride", category:"Electric & autonomous freight trucks", round:"Series E + IPO, Jun 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:1, visibility:5, civil:5 },
+  { name:"EnerVenue", category:"NASA-derived metal-hydrogen grid batteries", round:"Series B ext, $300M, Apr 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:5, community:3, water:2, visibility:3, civil:5 },
+  { name:"Moment Energy", category:"EV battery repurposing / second-life grid storage", round:"Series B, $40M, May 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:4, community:4, water:1, visibility:2, civil:4 },
+  { name:"Dandelion Energy", category:"Residential geothermal heating & cooling", round:"Growth, $174.5M total", vertical:"Community", type:"Q2 Cohort", innovation:4, community:5, water:2, visibility:2, civil:3 },
+  { name:"Manna Air Delivery", category:"Drone delivery logistics network", round:"Series B, $50M, Apr 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:4, community:4, water:1, visibility:2, civil:3 },
+  { name:"Rocsys", category:"Autonomous EV charging robots for fleets", round:"Series A, $13M, Apr 2026", vertical:"Infrastructure", type:"Q2 Cohort", innovation:4, community:3, water:1, visibility:1, civil:4 },
+  { name:"MaintainX", category:"Industrial maintenance / frontline workforce platform", round:"Series D, 2025", vertical:"Community", type:"Q2 Cohort", innovation:3, community:4, water:2, visibility:3, civil:4 },
+  { name:"Tensr", category:"Autonomous robotic factories / hardware-as-a-service", round:"Seed, YC 2025", vertical:"Infrastructure", type:"Accelerator", innovation:5, community:3, water:1, visibility:1, civil:4 },
+  { name:"AtoB", category:"Financial infrastructure / payments for trucking", round:"Growth, YC", vertical:"Community", type:"Accelerator", innovation:3, community:4, water:1, visibility:2, civil:3 },
+  { name:"Maximal", category:"AI freight load planning for trucking fleets", round:"Seed, YC 2025", vertical:"AI", type:"Accelerator", innovation:4, community:3, water:1, visibility:1, civil:3 },
+];
 
 let activeTab = 'q1';
 let q1State = { sortKey:'innovation', sortDir:-1, filterVertical:'', search:'' };
+let q2State = { sortKey:'innovation', sortDir:-1, filterVertical:'', filterType:'', search:'' };
 
 function scoreClass(n) { return ['','s1','s2','s3','s4','s5'][n] || 's1'; }
 
@@ -922,13 +1203,36 @@ function renderTable(data, prefix, accentColor) {
     return `<tr class="${hl}">
       <td><div class="company-name">${c.name}${tagHTML(c.type)}</div><div class="company-category">${c.category}</div></td>
       <td class="round-text">${c.round}</td>
-      <td class="score-cell"><span class="score-pip ${scoreClass(c.innovation)}">${c.innovation}</span></td>
-      <td class="score-cell"><span class="score-pip ${scoreClass(c.community)}">${c.community}</span></td>
-      <td class="score-cell"><span class="score-pip ${scoreClass(c.water)}">${c.water}</span></td>
-      <td class="score-cell"><span class="score-pip ${scoreClass(c.visibility)}">${c.visibility}</span></td>
-      <td class="score-cell"><span class="score-pip ${scoreClass(c.civil)}">${c.civil}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.innovation)}" data-dim="innovation" data-score="${c.innovation}">${c.innovation}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.community)}" data-dim="community" data-score="${c.community}">${c.community}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.water)}" data-dim="water" data-score="${c.water}">${c.water}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.visibility)}" data-dim="visibility" data-score="${c.visibility}">${c.visibility}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.civil)}" data-dim="civil" data-score="${c.civil}">${c.civil}</span></td>
     </tr>`;
   }).join('');
+}
+
+const dotColors = ['#B4B2A9','#85B7EB','#97C459','#EF9F27','#D85A30'];
+
+const dimensionLabels = {
+  innovation: { label:'Innovation', scores:['Incremental improvement','Somewhat differentiated','Clearly differentiated','Highly innovative','Breakthrough / category-defining'] },
+  community:  { label:'Community',  scores:['Little direct benefit','Indirect community benefit','Moderate improvement to access','Strong positive workforce effect','Transformational impact on equity'] },
+  water:      { label:'Water impact', scores:['No meaningful connection','Weak / indirect environmental link','Some sustainability relevance','Adjacent to water resilience','Direct water infrastructure impact'] },
+  visibility: { label:'Visibility', scores:['Almost unknown','Early niche awareness','Growing startup-ecosystem attention','Widely discussed in VC / tech media','Highly visible / mainstream'] },
+  civil:      { label:'Civil infra', scores:['Almost fully digital','Light physical dependency','Moderate logistics / facility reliance','Heavy reliance on transport or utilities','Deeply tied to civil infrastructure'] },
+};
+
+function updateLegend(key, prefix) {
+  const dim = dimensionLabels[key];
+  if (!dim) return;
+  const labelEl = document.getElementById(prefix+'-legend-label');
+  const scoresEl = document.getElementById(prefix+'-legend-scores');
+  if (labelEl) labelEl.textContent = dim.label + ':';
+  if (scoresEl) {
+    scoresEl.innerHTML = dim.scores.map((s, i) =>
+      `<span class="legend-item"><span class="legend-dot" style="background:${dotColors[i]}"></span>${i+1} — ${s}</span>`
+    ).join('');
+  }
 }
 
 function q1Render() {
@@ -959,6 +1263,7 @@ function q1SortBy(key) {
   if (arrowEl) arrowEl.textContent = q1State.sortDir === -1 ? ' ↓' : ' ↑';
   const thEl = document.querySelector(`#page-q1 th[onclick="q1SortBy('${key}')"]`);
   if (thEl) thEl.classList.add('sorted');
+  updateLegend(key, 'q1');
   q1Render();
 }
 
@@ -966,7 +1271,254 @@ document.getElementById('q1-search').addEventListener('input', e => { q1State.se
 document.getElementById('q1-filter-vertical').addEventListener('change', e => { q1State.filterVertical = e.target.value; q1Render(); });
 document.getElementById('q1-sort-col').addEventListener('change', e => { q1SortBy(e.target.value); });
 
+function q2Render() {
+  const s = q2State;
+  let data = q2Companies.filter(c => {
+    const q = s.search.toLowerCase();
+    return (!q || c.name.toLowerCase().includes(q) || c.category.toLowerCase().includes(q))
+      && (!s.filterVertical || c.vertical === s.filterVertical)
+      && (!s.filterType || c.type === s.filterType);
+  });
+  data.sort((a,b) => {
+    let av = a[s.sortKey], bv = b[s.sortKey];
+    return typeof av === 'string' ? s.sortDir * av.localeCompare(bv) : s.sortDir * (bv - av);
+  });
+  const avg = key => data.length ? (data.reduce((sum,c)=>sum+c[key],0)/data.length).toFixed(1) : '—';
+  const top = data.filter(c=>c.innovation>=4).length;
+  const infra = data.filter(c=>c.civil>=4).length;
+  document.getElementById('q2-metrics').innerHTML = `
+    <div class="metric"><div class="metric-label">Companies tracked</div><div class="metric-value">${data.length}</div></div>
+    <div class="metric"><div class="metric-label">Avg innovation</div><div class="metric-value">${avg('innovation')}</div></div>
+    <div class="metric"><div class="metric-label">Avg community</div><div class="metric-value">${avg('community')}</div></div>
+    <div class="metric"><div class="metric-label">High innovators</div><div class="metric-value">${top}</div></div>
+    <div class="metric"><div class="metric-label">Infra builders</div><div class="metric-value">${infra}</div></div>
+  `;
+  const tbody = document.getElementById('q2-table-body');
+  const empty = document.getElementById('q2-empty');
+  const count = document.getElementById('q2-row-count');
+  if (data.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    count.textContent = '';
+    return;
+  }
+  empty.style.display = 'none';
+  count.textContent = `Showing ${data.length} of ${q2Companies.length} companies`;
+  tbody.innerHTML = data.map(c => {
+    const hl = c.innovation >= 4 && c.civil >= 4 ? 'highlight-row' : '';
+    return `<tr class="${hl}" style="${hl ? '--row-accent:var(--accent-q2)' : ''}">
+      <td><div class="company-name">${c.name}${tagHTML(c.type)}</div><div class="company-category">${c.category}</div></td>
+      <td class="round-text">${c.round}</td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.innovation)}" data-dim="innovation" data-score="${c.innovation}">${c.innovation}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.community)}" data-dim="community" data-score="${c.community}">${c.community}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.water)}" data-dim="water" data-score="${c.water}">${c.water}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.visibility)}" data-dim="visibility" data-score="${c.visibility}">${c.visibility}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.civil)}" data-dim="civil" data-score="${c.civil}">${c.civil}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function q2SortBy(key) {
+  const keys = ['name','round','innovation','community','water','visibility','civil'];
+  keys.forEach(k => {
+    const el = document.getElementById('q2-arr-'+k);
+    if (el) el.textContent = '';
+    const th = document.querySelector(`#page-q2 th[onclick="q2SortBy('${k}')"]`);
+    if (th) th.classList.remove('sorted');
+  });
+  if (q2State.sortKey === key) { q2State.sortDir *= -1; } else { q2State.sortKey = key; q2State.sortDir = -1; }
+  const arrowEl = document.getElementById('q2-arr-'+key);
+  if (arrowEl) arrowEl.textContent = q2State.sortDir === -1 ? ' ↓' : ' ↑';
+  const thEl = document.querySelector(`#page-q2 th[onclick="q2SortBy('${key}')"]`);
+  if (thEl) thEl.classList.add('sorted');
+  updateLegend(key, 'q2');
+  q2Render();
+}
+
+document.getElementById('q2-search').addEventListener('input', e => { q2State.search = e.target.value; q2Render(); });
+document.getElementById('q2-filter-vertical').addEventListener('change', e => { q2State.filterVertical = e.target.value; q2Render(); });
+document.getElementById('q2-filter-type').addEventListener('change', e => { q2State.filterType = e.target.value; q2Render(); });
+document.getElementById('q2-sort-col').addEventListener('change', e => { q2SortBy(e.target.value); });
+
 q1Render();
+q2Render();
+updateLegend('innovation', 'q1');
+updateLegend('innovation', 'q2');
+
+// Auto-reveal Q2 index on June 30, 2026 — no code change needed
+(function() {
+  const REVEAL = new Date('2026-06-30T00:00:00');
+  const soon = document.getElementById('q2-coming-soon');
+  const full = document.getElementById('q2-index-full');
+  if (!soon || !full) return;
+  if (new Date() >= REVEAL) {
+    soon.style.display = 'none';
+    full.style.display = 'block';
+  } else {
+    soon.style.display = 'block';
+    full.style.display = 'none';
+  }
+})();
+</script>
+<!-- SCORE TOOLTIP -->
+<script>
+(function() {
+  const tip = document.createElement('div');
+  tip.className = 'score-tooltip';
+  tip.id = 'score-tooltip';
+  document.body.appendChild(tip);
+
+  const shortLabel = { innovation:'Innovation', community:'Community', water:'Water impact', visibility:'Visibility', civil:'Civil infra' };
+
+  function showTip(pip, x, y) {
+    const dim = pip.dataset.dim;
+    const score = parseInt(pip.dataset.score, 10);
+    const labels = dimensionLabels[dim];
+    if (!labels) return;
+    const desc = labels.scores[score - 1] || '';
+    const scoreLabel = score + ' / 5';
+    tip.innerHTML = `
+      <div class="score-tooltip-dim">${shortLabel[dim] || dim}</div>
+      <div class="score-tooltip-val">${scoreLabel}</div>
+      <div class="score-tooltip-desc">${desc}</div>
+    `;
+    tip.style.display = 'block';
+    positionTip(x, y);
+  }
+
+  function positionTip(x, y) {
+    const tw = tip.offsetWidth;
+    const th = tip.offsetHeight;
+    let left = x - tw / 2;
+    let top = y - th - 14;
+    if (top < 8) top = y + 18;
+    left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+
+  document.addEventListener('mouseover', function(e) {
+    const pip = e.target.closest('.score-pip[data-dim]');
+    if (pip) showTip(pip, e.clientX, e.clientY);
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (tip.style.display === 'none') return;
+    if (!e.target.closest('.score-pip[data-dim]')) { tip.style.display = 'none'; return; }
+    positionTip(e.clientX, e.clientY);
+  });
+
+  document.addEventListener('mouseout', function(e) {
+    if (e.target.closest && e.target.closest('.score-pip[data-dim]')) {
+      if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest('.score-pip[data-dim]')) {
+        tip.style.display = 'none';
+      }
+    }
+  });
+})();
+</script>
+
+<!-- DOWNLOAD GATE MODAL -->
+<div class="gate-overlay" id="gate-overlay" onclick="handleOverlayClick(event)">
+  <div class="gate-modal" id="gate-modal">
+    <button class="gate-close" onclick="closeGate()" aria-label="Close">✕</button>
+
+    <div id="gate-form-state">
+      <div class="gate-mark">F&F</div>
+      <div class="gate-title" id="gate-title">Get the Q1 2026<br>Signal Report</div>
+      <p class="gate-sub">Subscribe to the F&F Signal and get this report plus future quarterly releases delivered first.</p>
+      <div class="gate-input-wrap">
+        <input class="gate-input" type="email" id="gate-email" placeholder="your@email.com" autocomplete="email" />
+        <div class="gate-error" id="gate-error">Please enter a valid email address.</div>
+        <button class="gate-submit" id="gate-submit" onclick="submitGate()">Subscribe & download →</button>
+      </div>
+      <p class="gate-fine">No spam. Quarterly signals only. Unsubscribe anytime.</p>
+    </div>
+
+    <div class="gate-success-state" id="gate-success-state">
+      <div class="gate-success-icon">✦</div>
+      <div class="gate-success-title">You're in.</div>
+      <p class="gate-success-sub">Welcome to the F&F Signal. Your report is ready.</p>
+      <a class="gate-dl-btn" id="gate-dl-link" href="https://drive.google.com/file/d/1ODaeWHh_6Kna9YebPXLB1QItS9fkde8X/view?usp=sharing" target="_blank" download>↓ Download report</a>
+      <p class="gate-fine">Check your inbox — we'll send future signals there too.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Replace with your Formspree form endpoint ───────────────────────────────
+// 1. Go to formspree.io and create a free account
+// 2. Create a new form and copy the endpoint URL
+// 3. Paste it here, e.g. 'https://formspree.io/f/abcd1234'
+const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
+
+// ─── PDF links — update when ready ──────────────────────────────────────────
+const PDF_LINKS = {
+  q1: 'https://drive.google.com/file/d/1ODaeWHh_6Kna9YebPXLB1QItS9fkde8X/view?usp=sharing',
+  q2: 'YOUR_Q2_PDF_LINK_HERE',
+};
+
+function openGate() {
+  const tab = activeTab === 'q2' ? 'q2' : 'q1';
+  const labels = { q1: 'Q1 2026\nSignal Report', q2: 'Q2 2026\nInfrastructure Report' };
+  document.getElementById('gate-title').innerHTML = `Get the ${labels[tab].replace('\n','<br>')}`;
+  document.getElementById('gate-dl-link').href = PDF_LINKS[tab];
+  document.getElementById('gate-form-state').style.display = 'block';
+  document.getElementById('gate-success-state').style.display = 'none';
+  document.getElementById('gate-email').value = '';
+  document.getElementById('gate-error').style.display = 'none';
+  document.getElementById('gate-submit').disabled = false;
+  document.getElementById('gate-submit').textContent = 'Subscribe & download →';
+  document.getElementById('gate-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('gate-email').focus(), 50);
+}
+
+function closeGate() {
+  document.getElementById('gate-overlay').classList.remove('open');
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('gate-overlay')) closeGate();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeGate();
+});
+
+async function submitGate() {
+  const emailEl = document.getElementById('gate-email');
+  const errorEl = document.getElementById('gate-error');
+  const submitBtn = document.getElementById('gate-submit');
+  const email = emailEl.value.trim();
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errorEl.style.display = 'block';
+    emailEl.focus();
+    return;
+  }
+  errorEl.style.display = 'none';
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting…';
+
+  try {
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ email, report: document.getElementById('gate-title').textContent, source: 'ff-signal-index' }),
+    });
+    if (res.ok) {
+      document.getElementById('gate-form-state').style.display = 'none';
+      document.getElementById('gate-success-state').style.display = 'block';
+    } else {
+      throw new Error('Submission failed');
+    }
+  } catch {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Subscribe & download →';
+    errorEl.textContent = 'Something went wrong — please try again.';
+    errorEl.style.display = 'block';
+  }
+}
 </script>
 </body>
 </html>
