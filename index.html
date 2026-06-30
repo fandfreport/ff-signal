@@ -543,6 +543,33 @@
       color: var(--text-secondary);
       line-height: 1.8;
     }
+    .two-cents-inner.q2 { border-left-color: var(--accent-q2); }
+    .two-cents-title.q2 { color: var(--accent-q2); }
+
+    /* SOURCES */
+    .sources-section {
+      padding: 2rem 2rem 1rem;
+    }
+    .sources-inner {
+      max-width: 1020px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+    .sources-title {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    .sources-list {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      line-height: 1.8;
+    }
+    .sources-list span { color: var(--text-secondary); }
 
     .gate-overlay {
       display: none;
@@ -695,11 +722,11 @@
   <div class="nav-left">
     <span class="nav-wordmark">F&F</span>
     <div class="tabs">
-      <button class="tab-btn active-q1" id="tab-q1" onclick="setTab('q1')">
-        Q1 2026 <span class="tab-pill">Mar</span>
-      </button>
-      <button class="tab-btn" id="tab-q2" onclick="setTab('q2')">
+      <button class="tab-btn active-q2" id="tab-q2" onclick="setTab('q2')">
         Q2 2026 <span class="tab-pill">Jun 30</span>
+      </button>
+      <button class="tab-btn" id="tab-q1" onclick="setTab('q1')">
+        Q1 2026 <span class="tab-pill">Mar</span>
       </button>
       <button class="tab-btn" id="tab-fw" onclick="setTab('fw')">
         Framework <span class="tab-pill">F&F</span>
@@ -708,13 +735,13 @@
   </div>
   <div class="nav-right">
     <button class="btn-download" id="nav-download" onclick="openGate()">
-      ↓ Download report
+      ✉ Subscribe for Q2
     </button>
   </div>
 </nav>
 
 <!-- ═══════════════════════════════════════ Q1 PAGE ═══════════════════════════════════════ -->
-<div class="page q1 active" id="page-q1">
+<div class="page q1" id="page-q1">
 
   <section class="hero hero-q1">
     <div class="hero-inner q1">
@@ -833,7 +860,7 @@
 </div>
 
 <!-- ═══════════════════════════════════════ Q2 PAGE ═══════════════════════════════════════ -->
-<div class="page q2" id="page-q2">
+<div class="page q2 active" id="page-q2">
 
   <div class="coming-banner">
     Full Q2 Future Economy Signal Report drops June 30, 2026 – subscribe to get it first.
@@ -884,6 +911,13 @@
           <div class="pattern-desc">The strongest infrastructure companies embed community benefit by design, not as an afterthought.</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="two-cents-section">
+    <div class="two-cents-inner q2">
+      <div class="two-cents-title q2">Our two cents</div>
+      <p class="two-cents-body">Civil infrastructure used to mean four things: transportation, water, energy, and utilities. That definition no longer holds. From our POV, the next era of infrastructure will be built by founders who treat orbital data centers, autonomous manufacturing, smart cities, and water purification as foundational systems — not edge cases. The companies in this report aren't just building products; they're laying the groundwork for how communities will live, move, and access resources for decades to come. Now that that's out of the way, let's get into your second quarterly signal of 2026.</p>
     </div>
   </section>
 
@@ -956,6 +990,16 @@
           No companies match your filters.
         </div>
         <div class="row-count" id="q2-row-count"></div>
+
+        <div class="sources-section">
+          <div class="sources-inner">
+            <div class="sources-title">Sources</div>
+            <div class="sources-list">
+              Company funding, round, and milestone data compiled from <span>Crunchbase</span>, <span>GrowthList</span>, <span>PitchBook</span>, company press releases, and direct reporting from <span>TechCrunch</span>, <span>Axios Pro Rata</span>, and <span>The Information</span> (Q1–Q2 2026). Accelerator cohort data sourced from <span>Y Combinator</span> public batch listings. All Innovation, Community, Water, Visibility, and Civil Infrastructure scores are original F&F editorial assessments per the F&F Core Scoring Framework — see the Framework tab for full methodology. Scores and assessments are proprietary to Friends & Family.
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -1095,8 +1139,8 @@
     </div>
     <div class="footer-meta">
       <div>Friends & Family Signal</div>
-      <div id="footer-report-label">Q1 2026 · Pilot</div>
-      <div><button class="footer-dl-btn" id="footer-pdf-link" onclick="openGate()">↓ Download Q1 report (PDF)</button></div>
+      <div id="footer-report-label">Q2 2026 · Future Economy Signal Report</div>
+      <div><button class="footer-dl-btn" id="footer-pdf-link" onclick="openGate()">✉ Subscribe for the Q2 report</button></div>
     </div>
   </div>
 </footer>
@@ -1181,7 +1225,7 @@ const q2Companies = [
   { name:"Maximal", category:"AI freight load planning for trucking fleets", round:"Seed, YC 2025", vertical:"AI", type:"Accelerator", innovation:4, community:3, water:1, visibility:1, civil:3 },
 ];
 
-let activeTab = 'q1';
+let activeTab = 'q2';
 let q1State = { sortKey:'innovation', sortDir:-1, filterVertical:'', search:'' };
 let q2State = { sortKey:'innovation', sortDir:-1, filterVertical:'', filterType:'', search:'' };
 
@@ -1206,9 +1250,11 @@ function setTab(tab) {
   q2Btn.className = 'tab-btn' + (tab === 'q2' ? ' active-q2' : '');
   fwBtn.className = 'tab-btn' + (tab === 'fw' ? ' active-fw' : '');
   const labels = { q1: 'Q1 2026 · Pilot', q2: 'Q2 2026 · Future Economy Signal Report', fw: 'Scoring Framework' };
-  const pdfs = { q1: '↓ Download Q1 report (PDF)', q2: '↓ Download Q2 report (PDF)', fw: '↓ Download Q1 report (PDF)' };
+  const pdfs = { q1: '↓ Download Q1 report (PDF)', q2: '✉ Subscribe for the Q2 report', fw: '↓ Download Q1 report (PDF)' };
+  const navLabels = { q1: '↓ Download report', q2: '✉ Subscribe for Q2', fw: '↓ Download Q1 report' };
   document.getElementById('footer-report-label').textContent = labels[tab];
   document.getElementById('footer-pdf-link').textContent = pdfs[tab];
+  document.getElementById('nav-download').textContent = navLabels[tab];
 }
 
 function renderMetrics(data, prefix) {
@@ -1474,7 +1520,7 @@ updateLegend('innovation', 'q2');
     <div id="gate-form-state">
       <div class="gate-mark">F&F</div>
       <div class="gate-title" id="gate-title">Get the Q1<br>Future Economy Signal Report</div>
-      <p class="gate-sub">Subscribe to Friends & Family to get this report plus future quarterly releases delivered first.</p>
+      <p class="gate-sub" id="gate-sub-text">Subscribe to Friends & Family to get this report plus future quarterly releases delivered first.</p>
       <div class="gate-input-wrap">
         <input class="gate-input" type="email" id="gate-email" placeholder="your@email.com" autocomplete="email" />
         <div class="gate-error" id="gate-error">Please enter a valid email address.</div>
@@ -1486,8 +1532,9 @@ updateLegend('innovation', 'q2');
     <div class="gate-success-state" id="gate-success-state">
       <div class="gate-success-icon">✦</div>
       <div class="gate-success-title">You're in.</div>
-      <p class="gate-success-sub">Welcome to the F&F Signal. Your report is ready.</p>
+      <p class="gate-success-sub" id="gate-success-sub">Welcome to Friends & Family. Your report is ready.</p>
       <a class="gate-dl-btn" id="gate-dl-link" href="https://drive.google.com/file/d/1ODaeWHh_6Kna9YebPXLB1QItS9fkde8X/view?usp=sharing" target="_blank" download>↓ Download report</a>
+      <button class="gate-dl-btn" id="gate-explore-btn" onclick="closeGate(); setTab('q2');" style="display:none;">Explore the live index →</button>
       <p class="gate-fine">Check your inbox — we'll send future signals there too.</p>
     </div>
   </div>
@@ -1505,17 +1552,26 @@ const PDF_LINKS = {
   q2: 'YOUR_Q2_PDF_LINK_HERE',
 };
 
+let gateTab = 'q1';
+
 function openGate(forceTab) {
-  const tab = forceTab || (activeTab === 'q2' ? 'q2' : 'q1');
+  gateTab = forceTab || (activeTab === 'q2' ? 'q2' : 'q1');
+  const tab = gateTab;
   const labels = { q1: 'Q1\nFuture Economy Signal Report', q2: 'Q2\nFuture Economy Signal Report' };
   document.getElementById('gate-title').innerHTML = `Get the ${labels[tab].replace('\n','<br>')}`;
   document.getElementById('gate-dl-link').href = PDF_LINKS[tab];
+  const subEl = document.getElementById('gate-sub-text');
+  if (subEl) {
+    subEl.textContent = tab === 'q2'
+      ? 'Q2 drops June 30 — subscribe now and explore the live index as soon as it goes live.'
+      : 'Subscribe to Friends & Family to get this report plus future quarterly releases delivered first.';
+  }
   document.getElementById('gate-form-state').style.display = 'block';
   document.getElementById('gate-success-state').style.display = 'none';
   document.getElementById('gate-email').value = '';
   document.getElementById('gate-error').style.display = 'none';
   document.getElementById('gate-submit').disabled = false;
-  document.getElementById('gate-submit').textContent = 'Subscribe & download →';
+  document.getElementById('gate-submit').textContent = tab === 'q2' ? 'Subscribe →' : 'Subscribe & download →';
   document.getElementById('gate-overlay').classList.add('open');
   setTimeout(() => document.getElementById('gate-email').focus(), 50);
 }
@@ -1564,12 +1620,25 @@ async function submitGate() {
       localStorage.removeItem('ff-gate-dismissed');
       document.getElementById('gate-form-state').style.display = 'none';
       document.getElementById('gate-success-state').style.display = 'block';
+
+      const dlLink = document.getElementById('gate-dl-link');
+      const exploreBtn = document.getElementById('gate-explore-btn');
+      const successSub = document.getElementById('gate-success-sub');
+      if (gateTab === 'q2') {
+        dlLink.style.display = 'none';
+        exploreBtn.style.display = 'inline-flex';
+        successSub.textContent = "Welcome to Friends & Family. We'll email you the moment the Q2 report drops on June 30.";
+      } else {
+        dlLink.style.display = 'inline-flex';
+        exploreBtn.style.display = 'none';
+        successSub.textContent = 'Welcome to Friends & Family. Your report is ready.';
+      }
     } else {
       throw new Error('Submission failed');
     }
   } catch {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Subscribe & download →';
+    submitBtn.textContent = gateTab === 'q2' ? 'Subscribe →' : 'Subscribe & download →';
     errorEl.textContent = 'Something went wrong — please try again.';
     errorEl.style.display = 'block';
   }
