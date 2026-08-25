@@ -1563,12 +1563,7 @@ updateLegend('innovation', 'q2');
   }
 })();
 
-// Auto-show email gate on first visit — once per device
-(function() {
-  if (!localStorage.getItem('ff-subscribed') && !localStorage.getItem('ff-gate-dismissed')) {
-    setTimeout(() => openGate('q2'), 1800);
-  }
-})();
+// Gate only appears on download button click
 </script>
 <!-- LEGAL MODAL -->
 <div class="legal-overlay" id="legal-overlay" onclick="handleLegalOverlayClick(event)">
