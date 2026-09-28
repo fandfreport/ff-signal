@@ -35,6 +35,11 @@
       --accent-q2: #4A3FB5;
       --accent-q2-light: #EEEDFE;
       --accent-q2-dark: #3C3489;
+      --accent-q3: #C8933A;
+      --accent-q3-light: #FFF0D0;
+      --accent-q3-dark: #7A5020;
+      --accent-bwf: #8B3A8E;
+      --accent-bwf-light: #F5E0F7;
       --accent: #D85A30;
       --accent-light: #FAECE7;
       --font-display: 'Syne', sans-serif;
@@ -107,6 +112,7 @@
     .tab-btn.active-q1 { color: var(--accent-q1); border-bottom-color: var(--accent-q1); }
     .tab-btn.active-q2 { color: var(--accent-q2); border-bottom-color: var(--accent-q2); }
     .tab-btn.active-fw { color: #0F6E56; border-bottom-color: #0F6E56; }
+    .tab-btn.active-q3 { color: var(--accent-q3); border-bottom-color: var(--accent-q3); }
     .tab-pill {
       font-size: 9px;
       font-weight: 600;
@@ -117,7 +123,20 @@
     .tab-btn.active-q1 .tab-pill { background: var(--accent-q1-light); color: var(--accent-q1-dark); }
     .tab-btn.active-q2 .tab-pill { background: var(--accent-q2-light); color: var(--accent-q2-dark); }
     .tab-btn.active-fw .tab-pill { background: #E1F5EE; color: #085041; }
-    .tab-btn:not(.active-q1):not(.active-q2):not(.active-fw) .tab-pill { background: var(--bg-secondary); color: var(--text-tertiary); }
+    .tab-btn.active-q3 .tab-pill { background: var(--accent-q3-light); color: var(--accent-q3-dark); }
+    .tab-btn:not(.active-q1):not(.active-q2):not(.active-fw):not(.active-q3) .tab-pill { background: var(--bg-secondary); color: var(--text-tertiary); }
+
+    /* Q3 HERO & THEME */
+    .hero-q3 { background: linear-gradient(140deg, #FFF0D0 0%, #FAFAF8 50%, #F5E0F7 100%); }
+    .q3 .hero-eyebrow { color: var(--accent-q3); }
+    .q3 .hero-title span { color: var(--accent-q3); }
+    .q3 .pattern-num { color: var(--accent-q3); }
+    .q3 .two-cents-inner { border-left-color: var(--accent-q3); }
+    .q3 .two-cents-title { color: var(--accent-q3); }
+
+    /* DIVERSITY BADGES */
+    .tag-bf  { background: var(--accent-q3-light); color: var(--accent-q3-dark); }
+    .tag-bwf { background: var(--accent-bwf-light); color: var(--accent-bwf); }
 
     /* FRAMEWORK PAGE */
     .fw-hero { padding: 4rem 2rem 3rem; border-bottom: 1px solid var(--border); background: linear-gradient(140deg, #E1F5EE 0%, #FAFAF8 55%, #F3F1EB 100%); }
@@ -415,8 +434,11 @@
     }
     .tag-q1 { background: #FAEEDA; color: #633806; }
     .tag-q2 { background: #EEEDFE; color: #3C3489; }
+    .tag-q3-bf { background: var(--accent-q3-light); color: var(--accent-q3-dark); }
     .tag-accel { background: #E1F5EE; color: #085041; }
     .tag-funded { background: #E6F1FB; color: #185FA5; }
+    .tag-bf  { background: var(--accent-q3-light); color: var(--accent-q3-dark); }
+    .tag-bwf { background: var(--accent-bwf-light); color: var(--accent-bwf); }
 
     .highlight-row td:first-child { border-left: 2px solid var(--row-accent, var(--accent-q1)); }
 
@@ -831,7 +853,10 @@
   <div class="nav-left">
     <span class="nav-wordmark">F&F™</span>
     <div class="tabs">
-      <button class="tab-btn active-q2" id="tab-q2" onclick="setTab('q2')">
+      <button class="tab-btn active-q3" id="tab-q3" onclick="setTab('q3')">
+        Q3 2026 <span class="tab-pill">Sep 30</span>
+      </button>
+      <button class="tab-btn" id="tab-q2" onclick="setTab('q2')">
         Q2 2026 <span class="tab-pill">Jun 30</span>
       </button>
       <button class="tab-btn" id="tab-q1" onclick="setTab('q1')">
@@ -844,7 +869,7 @@
   </div>
   <div class="nav-right">
     <button class="btn-download" id="nav-download" onclick="openGate()">
-      ✉ Subscribe for Q2
+      ✉ Subscribe for Q3
     </button>
   </div>
 </nav>
@@ -969,7 +994,7 @@
 </div>
 
 <!-- ═══════════════════════════════════════ Q2 PAGE ═══════════════════════════════════════ -->
-<div class="page q2 active" id="page-q2">
+<div class="page q2" id="page-q2">
 
   <div class="coming-banner">
     Full Q2 Future Economy Signal Report is live — Q3 drops September 30, 2026. Subscribe to get it first.
@@ -1248,8 +1273,8 @@
     </div>
     <div class="footer-meta">
       <div>Friends & Family™ Signal</div>
-      <div id="footer-report-label">Q2 2026 · Future Economy Signal Report</div>
-      <div><button class="footer-dl-btn" id="footer-pdf-link" onclick="openGate()">✉ Subscribe for the Q2 report</button></div>
+      <div id="footer-report-label">Q3 2026 · Future Economy Signal Report</div>
+      <div><button class="footer-dl-btn" id="footer-pdf-link" onclick="openGate()">✉ Subscribe for the Q3 report</button></div>
     </div>
   </div>
   <div class="footer-legal-bar">
@@ -1341,33 +1366,55 @@ const q2Companies = [
   { name:"Maximal", category:"AI freight load planning for trucking fleets", round:"Seed, YC 2025", vertical:"AI", type:"Accelerator", innovation:4, community:3, water:1, visibility:1, civil:3 },
 ];
 
-let activeTab = 'q2';
+let activeTab = 'q3';
 let q1State = { sortKey:'innovation', sortDir:-1, filterVertical:'', search:'' };
 let q2State = { sortKey:'innovation', sortDir:-1, filterVertical:'', filterType:'', search:'' };
+let q3State = { sortKey:'innovation', sortDir:-1, filterVertical:'', filterBadge:'', search:'' };
+
+const q3Companies = [
+  { name:"SambaNova", category:"AI hardware / infrastructure", round:"Series E, $350M, Feb 2026", vertical:"AI", type:"Q3 Cohort", badge:"Black-Founded", innovation:5, community:2, water:1, visibility:4, civil:3 },
+  { name:"Twelve", category:"CO₂ to fuel & everyday products", round:"Series C, $200M, Sep 2024", vertical:"Infrastructure", type:"Q3 Cohort", badge:"Black Women-Founded", innovation:5, community:3, water:2, visibility:3, civil:4 },
+  { name:"Zing Health", category:"Medicare Advantage / underserved seniors", round:"Series B, $140M, Sep 2024", vertical:"Health", type:"Q3 Cohort", badge:"Black-Founded", innovation:4, community:5, water:1, visibility:3, civil:2 },
+  { name:"Novig", category:"Peer-to-peer sports prediction platform", round:"Series B, $75M, Feb 2026", vertical:"Commerce", type:"Q3 Cohort", badge:"Black-Founded", innovation:4, community:3, water:1, visibility:3, civil:1 },
+  { name:"Harper", category:"AI-native insurance brokerage for SMBs", round:"Series A, $47M, Feb 2026", vertical:"AI", type:"Accelerator", badge:"Black-Founded", innovation:4, community:4, water:1, visibility:2, civil:1 },
+  { name:"Campus", category:"Community college reimagined", round:"Series B, $46M, Q1 2025", vertical:"Community", type:"Q3 Cohort", badge:"Black-Founded", innovation:4, community:5, water:1, visibility:3, civil:2 },
+  { name:"POSH", category:"Live events / creator platform", round:"Series B, $37M, Mar 2026", vertical:"Commerce", type:"Q3 Cohort", badge:"Black-Founded", innovation:4, community:4, water:1, visibility:3, civil:1 },
+  { name:"GovDash", category:"AI government contracting software", round:"Series B, $30M, Jan 2026", vertical:"AI", type:"Q3 Cohort", badge:"Black-Founded", innovation:4, community:3, water:1, visibility:2, civil:2 },
+  { name:"Eleanor Health", category:"Outpatient addiction treatment", round:"Series D, $30M, Feb 2024", vertical:"Health", type:"Q3 Cohort", badge:"Black-Founded", innovation:3, community:5, water:1, visibility:2, civil:2 },
+  { name:"Infiuss Health", category:"Clinical trial recruitment AI", round:"Series A, 2025", vertical:"Health", type:"Q3 Cohort", badge:"Black Women-Founded", innovation:4, community:4, water:1, visibility:1, civil:2 },
+  { name:"Yourway Learning", category:"AI EdTech platform", round:"Series A, 2025", vertical:"Community", type:"Q3 Cohort", badge:"Black-Founded", innovation:4, community:5, water:1, visibility:1, civil:1 },
+  { name:"Ryse", category:"Secondary market for real estate leases", round:"Seed, $5.9M, Q1 2025", vertical:"Community", type:"Q3 Cohort", badge:"Black-Founded", innovation:4, community:4, water:1, visibility:2, civil:3 },
+  { name:"daba", category:"African markets investment platform", round:"Seed, 2025", vertical:"Commerce", type:"Q3 Cohort", badge:"Black-Founded", innovation:4, community:4, water:1, visibility:2, civil:1 },
+  { name:"Breakr", category:"Creator marketing / music & labels", round:"$7.7M total, 2025", vertical:"Commerce", type:"Q3 Cohort", badge:"Black-Founded", innovation:3, community:4, water:1, visibility:2, civil:1 },
+  { name:"TenYour", category:"Fintech / generational wealth safety net", round:"Accelerator, 2026", vertical:"Community", type:"Accelerator", badge:"Black-Founded", innovation:3, community:5, water:1, visibility:1, civil:1 },
+  { name:"FinQuery", category:"Accounting automation software", round:"$25M, 2024", vertical:"AI", type:"Q3 Cohort", badge:"Black-Founded", innovation:3, community:3, water:1, visibility:3, civil:1 },
+  { name:"Kubby", category:"AI shopping / unified commerce platform", round:"Seed, 2025", vertical:"Commerce", type:"Q3 Cohort", badge:"Black-Founded", innovation:3, community:3, water:1, visibility:1, civil:1 },
+  { name:"PROTIPPZ", category:"Sports-tech fan engagement platform", round:"Accelerator, 2025", vertical:"Commerce", type:"Accelerator", badge:"Black-Founded", innovation:3, community:3, water:1, visibility:1, civil:1 },
+];
 
 function scoreClass(n) { return ['','s1','s2','s3','s4','s5'][n] || 's1'; }
 
-function tagHTML(type) {
-  const map = { 'Q1 Cohort':'tag-q1 Q1', 'Q2 Cohort':'tag-q2 Q2', 'Accelerator':'tag-accel Accel', 'Funded':'tag-funded Funded' };
-  const v = map[type] || 'tag-funded ' + type;
-  const parts = v.split(' ');
-  return `<span class="tag ${parts[0]}">${parts.slice(1).join(' ')}</span>`;
+function tagHTML(type, badge) {
+  let typeTag = '';
+  if (type === 'Q1 Cohort') typeTag = '<span class="tag tag-q1">Q1</span>';
+  else if (type === 'Q2 Cohort') typeTag = '<span class="tag tag-q2">Q2</span>';
+  else if (type === 'Q3 Cohort') typeTag = '<span class="tag tag-q3-bf">Q3</span>';
+  else if (type === 'Accelerator') typeTag = '<span class="tag tag-accel">Accel</span>';
+  else typeTag = '<span class="tag tag-funded">Funded</span>';
+  if (badge === 'Black-Founded') return typeTag + '<span class="tag tag-bf">Black-Founded</span>';
+  if (badge === 'Black Women-Founded') return typeTag + '<span class="tag tag-bwf">Black Women-Founded</span>';
+  return typeTag;
 }
 
 function setTab(tab) {
   activeTab = tab;
-  document.getElementById('page-q1').classList.toggle('active', tab === 'q1');
-  document.getElementById('page-q2').classList.toggle('active', tab === 'q2');
-  document.getElementById('page-fw').classList.toggle('active', tab === 'fw');
-  const q1Btn = document.getElementById('tab-q1');
-  const q2Btn = document.getElementById('tab-q2');
-  const fwBtn = document.getElementById('tab-fw');
-  q1Btn.className = 'tab-btn' + (tab === 'q1' ? ' active-q1' : '');
-  q2Btn.className = 'tab-btn' + (tab === 'q2' ? ' active-q2' : '');
-  fwBtn.className = 'tab-btn' + (tab === 'fw' ? ' active-fw' : '');
-  const labels = { q1: 'Q1 2026 · Pilot', q2: 'Q2 2026 · Future Economy Signal Report', fw: 'Scoring Framework' };
-  const pdfs = { q1: '↓ Download Q1 report (PDF)', q2: '✉ Subscribe for the Q2 report', fw: '↓ Download Q1 report (PDF)' };
-  const navLabels = { q1: '↓ Download report', q2: '✉ Subscribe for Q2', fw: '↓ Download Q1 report' };
+  ['q1','q2','q3','fw'].forEach(t => {
+    const page = document.getElementById('page-'+t); if (page) page.classList.toggle('active', t === tab);
+    const btn = document.getElementById('tab-'+t); if (btn) btn.className = 'tab-btn' + (tab === t ? ' active-'+t : '');
+  });
+  const labels = { q1:'Q1 2026 · Pilot', q2:'Q2 2026 · Future Economy Signal Report', q3:'Q3 2026 · Future Economy Signal Report', fw:'Scoring Framework' };
+  const pdfs = { q1:'↓ Download Q1 report (PDF)', q2:'✉ Subscribe for the Q2 report', q3:'✉ Subscribe for the Q3 report', fw:'↓ Download Q1 report (PDF)' };
+  const navLabels = { q1:'↓ Download report', q2:'✉ Subscribe for Q2', q3:'✉ Subscribe for Q3', fw:'↓ Download Q1 report' };
   document.getElementById('footer-report-label').textContent = labels[tab];
   document.getElementById('footer-pdf-link').textContent = pdfs[tab];
   document.getElementById('nav-download').textContent = navLabels[tab];
@@ -1404,7 +1451,7 @@ function renderTable(data, prefix, accentColor) {
   tbody.innerHTML = data.map(c => {
     const hl = c.innovation >= 4 && c.civil >= 4 ? 'highlight-row' : '';
     return `<tr class="${hl}">
-      <td><div class="company-name">${c.name}${tagHTML(c.type)}</div><div class="company-category">${c.category}</div></td>
+      <td><div class="company-name">${c.name}${tagHTML(c.type, c.badge)}</div><div class="company-category">${c.category}</div></td>
       <td class="round-text">${c.round}</td>
       <td class="score-cell"><span class="score-pip ${scoreClass(c.innovation)}" data-dim="innovation" data-score="${c.innovation}">${c.innovation}</span></td>
       <td class="score-cell"><span class="score-pip ${scoreClass(c.community)}" data-dim="community" data-score="${c.community}">${c.community}</span></td>
@@ -1413,6 +1460,61 @@ function renderTable(data, prefix, accentColor) {
       <td class="score-cell"><span class="score-pip ${scoreClass(c.civil)}" data-dim="civil" data-score="${c.civil}">${c.civil}</span></td>
     </tr>`;
   }).join('');
+}
+
+function q3Render() {
+  const s = q3State;
+  let data = q3Companies.filter(c => {
+    const q = s.search.toLowerCase();
+    return (!q || c.name.toLowerCase().includes(q) || c.category.toLowerCase().includes(q))
+      && (!s.filterVertical || c.vertical === s.filterVertical)
+      && (!s.filterBadge || c.badge === s.filterBadge);
+  });
+  data.sort((a,b) => {
+    let av = a[s.sortKey], bv = b[s.sortKey];
+    return typeof av === 'string' ? s.sortDir * av.localeCompare(bv) : s.sortDir * (bv - av);
+  });
+  const avg = key => data.length ? (data.reduce((sum,c)=>sum+c[key],0)/data.length).toFixed(1) : '—';
+  const top = data.filter(c=>c.innovation>=4).length;
+  const comm = data.filter(c=>c.community>=4).length;
+  document.getElementById('q3-metrics').innerHTML = `
+    <div class="metric"><div class="metric-label">Companies tracked</div><div class="metric-value">${data.length}</div></div>
+    <div class="metric"><div class="metric-label">Avg innovation</div><div class="metric-value">${avg('innovation')}</div></div>
+    <div class="metric"><div class="metric-label">Avg community</div><div class="metric-value">${avg('community')}</div></div>
+    <div class="metric"><div class="metric-label">High innovators</div><div class="metric-value">${top}</div></div>
+    <div class="metric"><div class="metric-label">Community leaders</div><div class="metric-value">${comm}</div></div>
+  `;
+  const tbody = document.getElementById('q3-table-body');
+  const empty = document.getElementById('q3-empty');
+  const count = document.getElementById('q3-row-count');
+  if (data.length === 0) { tbody.innerHTML=''; empty.style.display='block'; count.textContent=''; return; }
+  empty.style.display = 'none';
+  count.textContent = `Showing ${data.length} of ${q3Companies.length} companies`;
+  tbody.innerHTML = data.map(c => {
+    const hl = c.innovation >= 4 && c.community >= 4 ? 'highlight-row' : '';
+    return `<tr class="${hl}" style="${hl ? '--row-accent:var(--accent-q3)' : ''}">
+      <td><div class="company-name">${c.name}${tagHTML(c.type, c.badge)}</div><div class="company-category">${c.category}</div></td>
+      <td class="round-text">${c.round}</td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.innovation)}" data-dim="innovation" data-score="${c.innovation}">${c.innovation}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.community)}" data-dim="community" data-score="${c.community}">${c.community}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.water)}" data-dim="water" data-score="${c.water}">${c.water}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.visibility)}" data-dim="visibility" data-score="${c.visibility}">${c.visibility}</span></td>
+      <td class="score-cell"><span class="score-pip ${scoreClass(c.civil)}" data-dim="civil" data-score="${c.civil}">${c.civil}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function q3SortBy(key) {
+  const keys = ['name','round','innovation','community','water','visibility','civil'];
+  keys.forEach(k => {
+    const el = document.getElementById('q3-arr-'+k); if (el) el.textContent = '';
+    const th = document.querySelector(`#page-q3 th[onclick="q3SortBy('${k}')"]`); if (th) th.classList.remove('sorted');
+  });
+  if (q3State.sortKey === key) { q3State.sortDir *= -1; } else { q3State.sortKey = key; q3State.sortDir = -1; }
+  const ae = document.getElementById('q3-arr-'+key); if (ae) ae.textContent = q3State.sortDir === -1 ? ' ↓' : ' ↑';
+  const te = document.querySelector(`#page-q3 th[onclick="q3SortBy('${key}')"]`); if (te) te.classList.add('sorted');
+  updateLegend(key, 'q3');
+  q3Render();
 }
 
 const dotColors = ['#B4B2A9','#85B7EB','#97C459','#EF9F27','#D85A30'];
@@ -1543,10 +1645,15 @@ document.getElementById('q2-filter-vertical').addEventListener('change', e => { 
 document.getElementById('q2-filter-type').addEventListener('change', e => { q2State.filterType = e.target.value; q2Render(); });
 document.getElementById('q2-sort-col').addEventListener('change', e => { q2SortBy(e.target.value); });
 
-q1Render();
-q2Render();
-updateLegend('innovation', 'q1');
-updateLegend('innovation', 'q2');
+document.getElementById('q3-search').addEventListener('input', e => { q3State.search = e.target.value; q3Render(); });
+document.getElementById('q3-filter-vertical').addEventListener('change', e => { q3State.filterVertical = e.target.value; q3Render(); });
+document.getElementById('q3-filter-badge').addEventListener('change', e => { q3State.filterBadge = e.target.value; q3Render(); });
+document.getElementById('q3-sort-col').addEventListener('change', e => { q3SortBy(e.target.value); });
+
+q1Render(); q2Render(); q3Render();
+updateLegend('innovation','q1');
+updateLegend('innovation','q2');
+updateLegend('innovation','q3');
 
 // Auto-reveal Q2 index on June 30, 2026 — no code change needed
 (function() {
@@ -1554,17 +1661,154 @@ updateLegend('innovation', 'q2');
   const soon = document.getElementById('q2-coming-soon');
   const full = document.getElementById('q2-index-full');
   if (!soon || !full) return;
-  if (new Date() >= REVEAL) {
-    soon.style.display = 'none';
-    full.style.display = 'block';
-  } else {
-    soon.style.display = 'block';
-    full.style.display = 'none';
-  }
+  if (new Date() >= REVEAL) { soon.style.display='none'; full.style.display='block'; }
+  else { soon.style.display='block'; full.style.display='none'; }
+})();
+
+// Auto-reveal Q3 index on September 30, 2026
+(function() {
+  const REVEAL = new Date('2026-09-30T00:00:00');
+  const soon = document.getElementById('q3-coming-soon');
+  const full = document.getElementById('q3-index-full');
+  if (!soon || !full) return;
+  if (new Date() >= REVEAL) { soon.style.display='none'; full.style.display='block'; }
+  else { soon.style.display='block'; full.style.display='none'; }
 })();
 
 // Gate only appears on download button click
 </script>
+<!-- ══════════════════════════════════════ Q3 PAGE ══════════════════════════════════════ -->
+<div class="page q3 active" id="page-q3">
+
+  <section class="hero hero-q3">
+    <div class="hero-inner q3">
+      <div class="hero-eyebrow">Q3 2026 · Future Economy Signal Report</div>
+      <h1 class="hero-title">Who Is<br><span>Building</span></h1>
+      <p class="hero-sub">18 Black-founded startups that received venture investment from 2024–2026 — scored across all five F&F dimensions. The builders the future economy can't afford to overlook.</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><strong>September 30, 2026</strong></span>
+        <span class="hero-dot"></span>
+        <span class="hero-meta-item"><strong>18</strong> companies</span>
+        <span class="hero-dot"></span>
+        <span class="hero-meta-item">Black-Founded · Friends & Family Signal</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="patterns">
+    <div class="patterns-inner">
+      <div class="section-eyebrow">5 patterns to watch · Q3</div>
+      <div class="patterns-grid q3">
+        <div class="pattern-item">
+          <div class="pattern-num">01</div>
+          <div class="pattern-title">The capital gap is structural — builders aren't stopping</div>
+          <div class="pattern-desc">Black founders raised 0.32% of U.S. venture funding in 2025. These 18 companies got funded anyway.</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-num">02</div>
+          <div class="pattern-title">Community is the product</div>
+          <div class="pattern-desc">Q3 companies score highest on Community Advancement of any cohort in the index — by design, not coincidence.</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-num">03</div>
+          <div class="pattern-title">Black founders are shaping AI from the inside</div>
+          <div class="pattern-desc">From AI hardware to insurance to government contracting — this cohort is building AI infrastructure, not just using it.</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-num">04</div>
+          <div class="pattern-title">The creator economy is being built by culture</div>
+          <div class="pattern-desc">POSH, Breakr, and daba are building commerce infrastructure from within communities that mainstream platforms overlook.</div>
+        </div>
+        <div class="pattern-item" style="border-right:none;">
+          <div class="pattern-num">05</div>
+          <div class="pattern-title">Health equity is an investment thesis</div>
+          <div class="pattern-desc">Zing Health, Eleanor Health, and Infiuss Health treat underserved communities as a market opportunity — not a charity case.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="two-cents-section">
+    <div class="two-cents-inner q3">
+      <div class="two-cents-title q3">Our two cents</div>
+      <p class="two-cents-body">Coming September 30, 2026.</p>
+    </div>
+  </section>
+
+  <section class="index-section">
+    <div class="index-inner">
+      <div class="section-eyebrow" style="margin-bottom:1.1rem;">Q3 signal index · 18 companies · Black-Founded</div>
+
+      <div id="q3-coming-soon" style="padding:3.5rem 2rem; text-align:center; border:1px dashed var(--border-strong); border-radius:var(--radius-lg); background:var(--bg-card);">
+        <div style="font-family:var(--font-display); font-size:20px; font-weight:800; letter-spacing:-0.035em; color:var(--text-primary); margin-bottom:0.5rem;">Index dropping September 30</div>
+        <div style="font-size:13px; color:var(--text-secondary); max-width:360px; margin:0 auto 1.5rem; line-height:1.65;">18 Black-founded startups — scored across all five F&F dimensions.</div>
+        <div style="display:inline-block; font-size:11px; font-weight:600; padding:6px 16px; border-radius:99px; background:var(--accent-q3-light); color:var(--accent-q3-dark); letter-spacing:0.06em;">SEPTEMBER 30, 2026</div>
+      </div>
+
+      <div id="q3-index-full" style="display:none;">
+        <div class="metrics" id="q3-metrics"></div>
+        <div class="controls">
+          <input type="text" id="q3-search" placeholder="Search by company or category…" />
+          <select id="q3-filter-vertical">
+            <option value="">All verticals</option>
+            <option value="Infrastructure">Infrastructure & systems</option>
+            <option value="AI">AI & digital infra</option>
+            <option value="Health">Health & human systems</option>
+            <option value="Commerce">Commerce & culture</option>
+            <option value="Community">Community advancement</option>
+          </select>
+          <select id="q3-filter-badge">
+            <option value="">All founders</option>
+            <option value="Black-Founded">Black-Founded</option>
+            <option value="Black Women-Founded">Black Women-Founded</option>
+          </select>
+          <select id="q3-sort-col">
+            <option value="innovation">Sort: Innovation</option>
+            <option value="community">Sort: Community</option>
+            <option value="water">Sort: Water</option>
+            <option value="visibility">Sort: Visibility</option>
+            <option value="civil">Sort: Civil infra</option>
+            <option value="name">Sort: Name A–Z</option>
+          </select>
+        </div>
+        <div class="score-legend">
+          <span style="font-size:10px; color:var(--text-tertiary); margin-right:2px;" id="q3-legend-label">Innovation:</span>
+          <span id="q3-legend-scores" style="display:contents;"></span>
+          <span class="legend-item" style="margin-left:8px; padding-left:8px; border-left:1px solid var(--border);">
+            <span style="display:inline-block;width:3px;height:13px;background:var(--accent-q3);border-radius:1px;margin-right:5px;"></span>
+            Standout (Innov ≥4 + Comm ≥4)
+          </span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th onclick="q3SortBy('name')" style="min-width:170px;">Company <span id="q3-arr-name"></span></th>
+                <th onclick="q3SortBy('round')" style="min-width:120px;">Round <span id="q3-arr-round"></span></th>
+                <th onclick="q3SortBy('innovation')" class="sorted" style="width:68px;text-align:center;">Innov <span id="q3-arr-innovation">↓</span></th>
+                <th onclick="q3SortBy('community')" style="width:68px;text-align:center;">Comm <span id="q3-arr-community"></span></th>
+                <th onclick="q3SortBy('water')" style="width:65px;text-align:center;">Water <span id="q3-arr-water"></span></th>
+                <th onclick="q3SortBy('visibility')" style="width:65px;text-align:center;">Visib <span id="q3-arr-visibility"></span></th>
+                <th onclick="q3SortBy('civil')" style="width:65px;text-align:center;">Civil <span id="q3-arr-civil"></span></th>
+              </tr>
+            </thead>
+            <tbody id="q3-table-body"></tbody>
+          </table>
+        </div>
+        <div id="q3-empty" class="empty" style="display:none;"><div class="empty-big">—</div>No companies match your filters.</div>
+        <div class="row-count" id="q3-row-count"></div>
+        <div class="sources-section">
+          <div class="sources-inner">
+            <div class="sources-title">Sources</div>
+            <div class="sources-list">Company funding and deal data sourced from <span>Crunchbase Diversity Spotlight</span>, <span>HBCUvc Black Venture Quarterly Reports (Q1–Q2 2025)</span>, <span>TechCrunch</span>, and company press releases (2024–2026). Companies included received confirmed venture investment from 2024 through Q1 2026. All Innovation, Community, Water, Visibility, and Civil Infrastructure scores are original F&F editorial assessments per the F&F Core Scoring Framework. Black-Founded and Black Women-Founded designations are based on publicly available founder information. All scores and designations are proprietary to Friends & Family.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
 <!-- LEGAL MODAL -->
 <div class="legal-overlay" id="legal-overlay" onclick="handleLegalOverlayClick(event)">
   <div class="legal-modal" id="legal-modal">
