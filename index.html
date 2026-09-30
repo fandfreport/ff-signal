@@ -1665,14 +1665,12 @@ updateLegend('innovation','q3');
   else { soon.style.display='block'; full.style.display='none'; }
 })();
 
-// Auto-reveal Q3 index on September 30, 2026
+// Q3 index is live — September 30, 2026
 (function() {
-  const REVEAL = new Date('2026-09-30T00:00:00');
   const soon = document.getElementById('q3-coming-soon');
   const full = document.getElementById('q3-index-full');
-  if (!soon || !full) return;
-  if (new Date() >= REVEAL) { soon.style.display='none'; full.style.display='block'; }
-  else { soon.style.display='block'; full.style.display='none'; }
+  if (soon) soon.style.display = 'none';
+  if (full) full.style.display = 'block';
 })();
 
 // Gate only appears on download button click
@@ -1739,13 +1737,13 @@ updateLegend('innovation','q3');
     <div class="index-inner">
       <div class="section-eyebrow" style="margin-bottom:1.1rem;">Q3 signal index · 18 companies · Black-Founded</div>
 
-      <div id="q3-coming-soon" style="padding:3.5rem 2rem; text-align:center; border:1px dashed var(--border-strong); border-radius:var(--radius-lg); background:var(--bg-card);">
+      <div id="q3-coming-soon" style="display:none; padding:3.5rem 2rem; text-align:center; border:1px dashed var(--border-strong); border-radius:var(--radius-lg); background:var(--bg-card);">
         <div style="font-family:var(--font-display); font-size:20px; font-weight:800; letter-spacing:-0.035em; color:var(--text-primary); margin-bottom:0.5rem;">Index dropping September 30</div>
         <div style="font-size:13px; color:var(--text-secondary); max-width:360px; margin:0 auto 1.5rem; line-height:1.65;">18 Black-founded startups — scored across all five F&F dimensions.</div>
         <div style="display:inline-block; font-size:11px; font-weight:600; padding:6px 16px; border-radius:99px; background:var(--accent-q3-light); color:var(--accent-q3-dark); letter-spacing:0.06em;">SEPTEMBER 30, 2026</div>
       </div>
 
-      <div id="q3-index-full" style="display:none;">
+      <div id="q3-index-full" style="display:block;">
         <div class="metrics" id="q3-metrics"></div>
         <div class="controls">
           <input type="text" id="q3-search" placeholder="Search by company or category…" />
