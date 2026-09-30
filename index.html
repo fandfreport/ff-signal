@@ -1575,9 +1575,8 @@ function q1SortBy(key) {
   q1Render();
 }
 
-document.getElementById('q1-search').addEventListener('input', e => { q1State.search = e.target.value; q1Render(); });
-document.getElementById('q1-filter-vertical').addEventListener('change', e => { q1State.filterVertical = e.target.value; q1Render(); });
-document.getElementById('q1-sort-col').addEventListener('change', e => { q1SortBy(e.target.value); });
+// All event listeners and render inits deferred to DOMContentLoaded
+// so every DOM element is guaranteed to exist regardless of script position
 
 function q2Render() {
   const s = q2State;
@@ -1643,38 +1642,40 @@ function q2SortBy(key) {
   q2Render();
 }
 
-document.getElementById('q2-search').addEventListener('input', e => { q2State.search = e.target.value; q2Render(); });
-document.getElementById('q2-filter-vertical').addEventListener('change', e => { q2State.filterVertical = e.target.value; q2Render(); });
-document.getElementById('q2-filter-type').addEventListener('change', e => { q2State.filterType = e.target.value; q2Render(); });
-document.getElementById('q2-sort-col').addEventListener('change', e => { q2SortBy(e.target.value); });
+document.addEventListener('DOMContentLoaded', function() {
+  function bind(id, event, fn) { var el = document.getElementById(id); if (el) el.addEventListener(event, fn); }
 
-document.getElementById('q3-search').addEventListener('input', e => { q3State.search = e.target.value; q3Render(); });
-document.getElementById('q3-filter-vertical').addEventListener('change', e => { q3State.filterVertical = e.target.value; q3Render(); });
-document.getElementById('q3-filter-badge').addEventListener('change', e => { q3State.filterBadge = e.target.value; q3Render(); });
-document.getElementById('q3-sort-col').addEventListener('change', e => { q3SortBy(e.target.value); });
+  // Q1
+  bind('q1-search', 'input', e => { q1State.search = e.target.value; q1Render(); });
+  bind('q1-filter-vertical', 'change', e => { q1State.filterVertical = e.target.value; q1Render(); });
+  bind('q1-sort-col', 'change', e => { q1SortBy(e.target.value); });
 
-q1Render(); q2Render(); q3Render();
-updateLegend('innovation','q1');
-updateLegend('innovation','q2');
-updateLegend('innovation','q3');
+  // Q2
+  bind('q2-search', 'input', e => { q2State.search = e.target.value; q2Render(); });
+  bind('q2-filter-vertical', 'change', e => { q2State.filterVertical = e.target.value; q2Render(); });
+  bind('q2-filter-type', 'change', e => { q2State.filterType = e.target.value; q2Render(); });
+  bind('q2-sort-col', 'change', e => { q2SortBy(e.target.value); });
 
-// Auto-reveal Q2 index on June 30, 2026 — no code change needed
-(function() {
-  const REVEAL = new Date('2026-06-30T00:00:00');
-  const soon = document.getElementById('q2-coming-soon');
-  const full = document.getElementById('q2-index-full');
-  if (!soon || !full) return;
-  if (new Date() >= REVEAL) { soon.style.display='none'; full.style.display='block'; }
-  else { soon.style.display='block'; full.style.display='none'; }
-})();
+  // Q3
+  bind('q3-search', 'input', e => { q3State.search = e.target.value; q3Render(); });
+  bind('q3-filter-vertical', 'change', e => { q3State.filterVertical = e.target.value; q3Render(); });
+  bind('q3-filter-badge', 'change', e => { q3State.filterBadge = e.target.value; q3Render(); });
+  bind('q3-sort-col', 'change', e => { q3SortBy(e.target.value); });
 
-// Q3 index is live — September 30, 2026
-(function() {
-  const soon = document.getElementById('q3-coming-soon');
-  const full = document.getElementById('q3-index-full');
-  if (soon) soon.style.display = 'none';
-  if (full) full.style.display = 'block';
-})();
+  // Init all three reports
+  q1Render(); q2Render(); q3Render();
+  updateLegend('innovation','q1');
+  updateLegend('innovation','q2');
+  updateLegend('innovation','q3');
+
+  // Ensure Q2 full index is visible
+  var q2s = document.getElementById('q2-coming-soon'); if (q2s) q2s.style.display = 'none';
+  var q2f = document.getElementById('q2-index-full'); if (q2f) q2f.style.display = 'block';
+
+  // Ensure Q3 full index is visible
+  var q3s = document.getElementById('q3-coming-soon'); if (q3s) q3s.style.display = 'none';
+  var q3f = document.getElementById('q3-index-full'); if (q3f) q3f.style.display = 'block';
+});
 
 // Gate only appears on download button click
 </script>
