@@ -129,7 +129,8 @@
     .tab-btn:not(.active-q1):not(.active-q2):not(.active-fw):not(.active-q3) .tab-pill { background: var(--bg-secondary); color: var(--text-tertiary); }
 
     /* Q3 HERO & THEME */
-    .hero-q3 { background: linear-gradient(140deg, #FFF0D0 0%, #FAFAF8 50%, #F5E0F7 100%); }
+    .hero-q3 { background: linear-gradient(160deg, #F5DFA0 0%, #FAFAF8 60%, #EDD8FB 100%); }
+    .hero-q3 .hero-inner { display: flex; flex-direction: column; justify-content: flex-end; min-height: 320px; }
     .q3 .hero-eyebrow { color: var(--accent-q3); }
     .q3 .hero-title span { color: var(--accent-q3); }
     .q3 .pattern-num { color: var(--accent-q3); }
@@ -1267,27 +1268,6 @@
 
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">F&F™</div>
-      <div class="footer-tagline">Tracking the builders shaping the future economy, infrastructure, and communities.</div>
-    </div>
-    <div class="footer-meta">
-      <div>Friends & Family™ Signal</div>
-      <div id="footer-report-label">Q3 2026 · Future Economy Signal Report</div>
-      <div><button class="footer-dl-btn" id="footer-pdf-link" onclick="openGate()">✉ Subscribe for the Q3 report</button></div>
-    </div>
-  </div>
-  <div class="footer-legal-bar">
-    <span>© 2026 Friends & Family™. All rights reserved.</span>
-    <span class="footer-legal-divider">·</span>
-    <span>Friends & Family™ and F&F™ are trademarks of Friends & Family.</span>
-    <span class="footer-legal-divider">·</span>
-    <button class="footer-legal-link" onclick="openLegal()">Legal & IP Notice</button>
-  </div>
-</footer>
 
 <script>
 const q1Companies = [
@@ -1810,6 +1790,28 @@ document.addEventListener('DOMContentLoaded', function() {
   </section>
 
 </div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">F&F™</div>
+      <div class="footer-tagline">Tracking the builders shaping the future economy, infrastructure, and communities.</div>
+    </div>
+    <div class="footer-meta">
+      <div>Friends & Family™ Signal</div>
+      <div id="footer-report-label">Q3 2026 · Future Economy Signal Report</div>
+      <div><button class="footer-dl-btn" id="footer-pdf-link" onclick="openGate()">✉ Subscribe for the Q3 report</button></div>
+    </div>
+  </div>
+  <div class="footer-legal-bar">
+    <span>© 2026 Friends & Family™. All rights reserved.</span>
+    <span class="footer-legal-divider">·</span>
+    <span>Friends & Family™ and F&F™ are trademarks of Friends & Family.</span>
+    <span class="footer-legal-divider">·</span>
+    <button class="footer-legal-link" onclick="openLegal()">Legal & IP Notice</button>
+  </div>
+</footer>
 
 <!-- LEGAL MODAL -->
 <div class="legal-overlay" id="legal-overlay" onclick="handleLegalOverlayClick(event)">
