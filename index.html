@@ -59,7 +59,7 @@
 
     /* NAV */
     nav {
-      padding: 0 2rem;
+      padding: 0 1.5rem;
       display: flex;
       align-items: stretch;
       justify-content: space-between;
@@ -69,16 +69,18 @@
       top: 0;
       z-index: 100;
       backdrop-filter: blur(8px);
-      height: 52px;
+      min-height: 50px;
+      flex-wrap: nowrap;
     }
     .nav-left {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 16px;
+      overflow: hidden;
     }
     .nav-wordmark {
       font-family: var(--font-display);
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--text-primary);
@@ -93,9 +95,9 @@
     }
     .tab-btn {
       font-family: var(--font-body);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 500;
-      padding: 0 18px;
+      padding: 0 12px;
       border: none;
       background: transparent;
       color: var(--text-tertiary);
@@ -106,7 +108,7 @@
       white-space: nowrap;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
     .tab-btn:hover { color: var(--text-secondary); }
     .tab-btn.active-q1 { color: var(--accent-q1); border-bottom-color: var(--accent-q1); }
@@ -836,14 +838,15 @@
     .footer-dl-btn:hover { text-decoration: underline; }
 
     @media (max-width: 680px) {
-      nav { padding: 0 1rem; }
+      nav { padding: 0 0.75rem; }
+      .tab-pill { display: none; }
+      .tab-btn { padding: 0 8px; font-size: 10px; }
       .hero { padding: 3rem 1rem 2.5rem; }
       .patterns { padding: 2rem 1rem; }
       .index-section { padding: 1.75rem 1rem 3.5rem; }
       footer { padding: 1.75rem 1rem; }
       .footer-inner { flex-direction: column; }
       .footer-meta { text-align: left; }
-      .tab-btn { padding: 0 12px; font-size: 11px; }
     }
   </style>
 </head>
@@ -1058,8 +1061,8 @@
   <section class="index-section">
     <div class="index-inner">
 
-      <!-- Coming soon — shown before June 30, 2026 -->
-      <div id="q2-coming-soon">
+      <!-- Coming soon — Q2 now live -->
+      <div id="q2-coming-soon" style="display:none;">
         <div style="padding: 3.5rem 2rem; text-align: center; border: 1px dashed var(--border-strong); border-radius: var(--radius-lg); background: var(--bg-card);">
           <div style="font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: -0.035em; color: var(--text-primary); margin-bottom: 0.5rem;">Index dropping June 30</div>
           <div style="font-size: 13px; color: var(--text-secondary); max-width: 360px; margin: 0 auto 1.5rem; line-height: 1.65;">50 infrastructure startups — accelerator cohorts and independently funded — scored across all five F&F dimensions.</div>
@@ -1067,8 +1070,8 @@
         </div>
       </div>
 
-      <!-- Full index — revealed June 30, 2026 -->
-      <div id="q2-index-full">
+      <!-- Full index — live -->
+      <div id="q2-index-full" style="display:block;">
         <div class="section-eyebrow" style="margin-bottom:1.1rem;">Q2 signal index · 50 companies</div>
         <div class="metrics" id="q2-metrics"></div>
         <div class="controls">
